@@ -1,8 +1,3 @@
-module.exports = {
-    protocol: "http",
-    domain: "localhost",
-    port: 8080
-};
 let config = {};
 switch(process.env.NODE_ENV) {
     case "dev": 
