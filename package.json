@@ -17,11 +17,14 @@
     "babel-preset-react": "^6.23.0",
     "browser-sync": "^2.18.8",
     "browser-sync-webpack-plugin": "^1.1.4",
+    "connect-session-knex": "^1.4.0",
     "css-loader": "^0.27.3",
     "del-cli": "^0.2.1",
     "express": "4.14.0",
+    "express-session": "^1.15.6",
     "html-webpack-plugin": "^2.28.0",
     "knex": "^0.13.0",
+    "oauth": "^0.9.15",
     "objection": "^0.8.9",
     "pg": "^7.3.0",
     "style-loader": "^0.14.0",
@@ -30,6 +33,7 @@
   "dependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-router": "2.8.1"
+    "react-router": "2.8.1",
+    "whatwg-fetch": "^2.0.3"
   }
 }
