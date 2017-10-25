@@ -3,7 +3,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const path = require("path");
 
 module.exports = {
-    entry: './index.js',
+    entry: ['whatwg-fetch', './index.js'],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
@@ -59,19 +59,19 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: "Book Trading Club",
         }),
-        // new BrowserSyncPlugin({
-        //     host: 'localhost',
-        //     port: 8080,
-        //     files: "dist/**/*.*",
-        //     server: {
-        //         baseDir: ["./", "dist"],
-        //         index: "index.html"
-        //     }
-        // })
         new BrowserSyncPlugin({
-            host: "localhost",
-            port: 8080,
-            proxy: "localhost:8081"
+            host: 'localhost',
+            port: 8081,
+            files: "dist/**/*.*",
+            server: {
+                baseDir: ["./", "dist"],
+                index: "index.html"
+            }
         })
+        // new BrowserSyncPlugin({
+        //     host: "localhost",
+        //     port: 8081,
+        //     proxy: "localhost:8080"
+        // })
     ]
-}
+};

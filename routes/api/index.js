@@ -1,5 +1,6 @@
 const OAuth = require("oauth");
 const router = require("express").Router();
+const { jsend } = require("./../../helpers/utils");
 
 const allowOrigin = (req, res, next) => {
     res.set({
@@ -21,13 +22,7 @@ router.get("/get_request_token", (req, res) => {
             );
             
     oauth.getOAuthRequestToken({}, function(err, token, secret, parsed) {
-        res.json({
-            status: "success",
-            data: {
-                token, 
-                secret
-            }
-        });
+        res.json(jsend.success({token, secret}));
     });
 });
 router.get("/get_access_token", (req, res) => {
@@ -52,14 +47,7 @@ router.get("/get_access_token", (req, res) => {
             return;
         }
         req.session.username = user.screen_name;
-        res.json({
-            status: "success",
-            data: {
-                access_token,
-                access_secret,
-                user
-            }
-        });
+        res.json(jsend.success({access_token, access_secret, user}));
     });
 });
 router.use("/client", require("./clients"));

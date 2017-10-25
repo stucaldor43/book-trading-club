@@ -6,6 +6,8 @@ class Address extends Model {
     }
 
     static get relationMappings() {
+        const Client = require("./Client");
+        
         return {
             resident: {
                 relation: Model.HasManyRelation,
