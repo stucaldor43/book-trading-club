@@ -26,14 +26,17 @@ module.exports = {
                 test: /\.css$/,
                 exclude: /node_modules/,
                 use: [
+                    // {
+                    //     loader: 'style-loader'
+                    // },
+                    // {
+                    //     loader: 'css-loader',
+                    //     options: {
+                    //         modules: true
+                    //     }
+                    // }
                     {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true
-                        }
+                        loader: 'raw-loader'
                     }
                 ]
             },
@@ -51,6 +54,10 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.html/,
+                loader: "raw-loader"
             }
         ]
     },
