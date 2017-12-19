@@ -6,6 +6,10 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.signIn = this.signIn.bind(this);
+        this.toggleMenuVisibility = this.toggleMenuVisibility.bind(this);
+        this.state = {
+            isNavOpen: false
+        };
     }
 
     async signIn() {
@@ -16,11 +20,27 @@ class Header extends React.Component {
         location.assign(`https://api.twitter.com/oauth/authorize?oauth_token=${localStorage.getItem("token")}`);
     }
     
+    toggleMenuVisibility() {
+        this.setState((state) => {
+            return {
+                isNavOpen: !state.isNavOpen
+            }
+        });
+    }
+
     render() {
+        const hamburgerClasses = "hamburger " + (this.state.isNavOpen ? "hamburger-isNotPresent" : "");
+        const navigationClasses = "header-navigation " + (this.state.isNavOpen ? "header-navigation-isPresent" : "header-navigation-isNotPresent");
         return (
             <header className="header">
               <div className="header-navWrapper">
-                  <nav className="header-navigation">
+                <div className={ hamburgerClasses } onClick={ this.toggleMenuVisibility }>
+                    <div className="bar"></div>
+                    <div className="bar"></div>
+                    <div className="bar"></div>
+                </div>
+                <nav className={ navigationClasses }>
+                    <span onClick={ this.toggleMenuVisibility } className="header-navigation-closeButton">x</span>
                     <Link to="/allbooks" className="header-navLink">Books</Link>
                     <Link to="/mybooks" className="header-navLink">My Library</Link>
                     <Link to="/settings" className="header-navLink">Profile</Link>
