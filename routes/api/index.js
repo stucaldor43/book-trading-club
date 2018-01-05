@@ -54,5 +54,5 @@ router.use("/client", require("./clients"));
 router.use("/address", require("./addresses"));
 router.use("/book", require("./books"));
 router.use("/bookdetails", require("./book_details"));
-
+router.use("/offer", require("./offers"))
 module.exports = router;

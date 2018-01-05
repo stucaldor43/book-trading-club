@@ -21,7 +21,10 @@ router.post("/", async (req, res) => {
     }
     const newUser = await Client
                             .query()
-                            .insert({display_name: req.session.username || req.ip});
+                            .insert({display_name: req.session.username || req.ip})
+    await newUser
+            .$relatedQuery("address")
+            .insert({});
     res.json(jsend.success({client: newUser}));
 });
 
@@ -30,7 +33,7 @@ router.delete("/:id", async (req, res) => {
                         .query()
                         .where("display_name", req.session.username || req.ip)
                         .first();
-    if (user.id !== Number(req.params.id)) {
+    if (!user || (user.id !== Number(req.params.id))) {
         res.sendStatus(400);
     }
     await Client.query().deleteById(user.id);

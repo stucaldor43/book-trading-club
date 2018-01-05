@@ -25,30 +25,6 @@ class Book extends Model {
                     from: "book.fk_client_id",
                     to: "client.id"
                 }
-            },
-            offers: {
-                relation: Model.ManyToManyRelation,
-                modelClass: Book,
-                join: {
-                    from: "book.id",
-                    through: {
-                        from: "offer.offered_book",
-                        to: "offer.requested_book"
-                    },
-                    to: "book.id"
-                }
-            },
-            requests: {
-                relation: Model.ManyToManyRelation,
-                modelClass: Book,
-                join: {
-                    from: "book.id",
-                    through: {
-                        from: "offer.requested_book",
-                        to: "offer.offered_book"
-                    },
-                    to: "book.id"
-                }
             }
         }
     }

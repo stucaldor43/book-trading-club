@@ -8,8 +8,7 @@ class Client extends Model {
     static get relationMappings() {
         const Address = require("./Address");
         const Book = require("./Book");
-        const Offer = require("./Offer");
-
+        
         return {
             address: {
                 relation: Model.BelongsToOneRelation,
