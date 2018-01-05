@@ -2,15 +2,15 @@ module.exports.up = function(knex) {
   return knex.schema
     .createTable("address", (table) => {
         table.increments("id").primary();
-        table.string("city");
-        table.string("state");
+        table.string("city").defaultTo("");
+        table.string("state").defaultTo("");
     })
     .createTable("client", (table) => {
         table.increments("id").primary();
         table.string("first_name");
         table.string("last_name");
         table.string("display_name").notNullable().unique("display_name");
-        table.integer("fk_address_id").unsigned().references("id").inTable("address");
+        table.integer("fk_address_id").unsigned().references("id").inTable("address").onDelete("RESTRICT");
     })
     .createTable("book", (table) => {
         table.increments("id").primary();
@@ -21,6 +21,7 @@ module.exports.up = function(knex) {
         table.string("author").notNullable();
         table.string("title").notNullable();
         table.string("cover_image_url").notNullable();
+        table.string("description");
         table.integer("fk_book_id").unsigned().references("id").inTable("book").onDelete("CASCADE").notNullable();
     })
     .createTable("offer", (table) => {
