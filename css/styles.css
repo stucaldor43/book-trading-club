@@ -121,7 +121,7 @@ body {
     padding: 128px 32px 58px 32px;
     background-color: #f6f6f6;
     text-align: center;
-    font-size: 26px;
+    font-size: 40px;
     font-weight: 800;
     color: #81b2ff;
 }
@@ -175,8 +175,9 @@ body {
 @media (min-width: 573px) {
     .book {
         display: inline-block;
-        width: 47%;
+        width: 45%;
         margin-right: 16px;
+        vertical-align: top;
     }
 }
 
@@ -199,6 +200,12 @@ body {
     border: thin solid #000;
     width: 100%;
     display: block;
+}
+
+@media (min-width: 573px) {
+    .book-thumbnailImage {
+        height: 345px;
+    }
 }
 
 .book-infoContainer {
@@ -228,9 +235,9 @@ body {
     margin: 0 auto;
     width: 90%;
     max-width: 776px;
-    max-height: 420px;
+    max-height: 435px;
     overflow: hidden;
-    padding: 32px 16px;
+    padding: 32px 16px 16px 16px;
     background-color: #FFF;
     border-radius: 4px;
     position: relative;
@@ -252,4 +259,57 @@ body {
 .bookDialog-descriptionContainer {
     max-height: 200px;
     overflow: auto;
+    margin-bottom: 8px;
+}
+
+.bookDialog-deleteBookButton {
+    background-color: #663399;
+    color: #ffffff;
+    border: thin solid;
+    padding: 16px 16px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    border-radius: 3px;
+    display: block;
+    width: 100%;
+}
+
+.closeButton {
+    display: inline;
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    font-size: 25px;
+    color: grey;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.dialog [type=text] {
+    padding: 12px 16px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    border: thin solid grey;
+    border-radius: 3px;
+    -webkit-appearance: none;
+}
+
+.filter-textInput {
+    padding: 7px 12px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    border: thin solid grey;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+@media (min-width: 573px) {
+    .filter-textInput {
+        margin-right: 8px;
+        min-width: 120px;
+        width: auto;
+    }
 }

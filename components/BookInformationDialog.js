@@ -6,7 +6,9 @@ class BookInformationDialog extends React.Component {
     }
 
     render() {
-        const { book } = this.props;
+        const { book, isBookRemovable } = this.props;
+        const deleteBookButton = (isBookRemovable) ? <button className="bookDialog-deleteBookButton" 
+                                                             onClick={ this.props.deleteBook }>Delete</button> : null
         return (
             <div className="dialog">
                 <div className="wrapper">
@@ -17,6 +19,9 @@ class BookInformationDialog extends React.Component {
                     </div>
                     <div className="bookDialog-descriptionContainer">
                         <p className="bookDialog-description">{book.description}</p>
+                    </div>
+                    <div>
+                        { deleteBookButton }
                     </div>
                 </div>
             </div>

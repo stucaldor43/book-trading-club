@@ -1,4 +1,7 @@
 import React from "react";
+import BookInformmationDialog from "./BookInformationDialog";
+import BookInformationDialog from "./BookInformationDialog";
+import Filter from "./Filter";
 
 class AllBooks extends React.Component {
     constructor(props) {
@@ -50,28 +53,58 @@ class AllBooks extends React.Component {
                     author: "David Herman",
                     imageUrl: "https://images-na.ssl-images-amazon.com/images/I/5123h9QhY8L._SX379_BO1,204,203,200_.jpg"
                 }
-            ]
+            ],
+            isBookDialogOpen: false,
+            isFilteringBookEntries: false,
+            filteredEntries: [],
+            currentlySelectedBook: null
         }
+        this.openBookDialog = this.openBookDialog.bind(this);
+        this.closeBookDialog = this.closeBookDialog.bind(this);
     }
 
     componentDidMount() {
         // get book data
     }
 
-    render() {
+    openBookDialog(id, evt) {
         const { books } = this.state;
-        const bookCollection = books.map((book) => 
-          <div class="book">
-              <img class="book-thumbnailImage" src={book.imageUrl}/>
-              <h3 class="book-title">{book.title}</h3>
-              <h4 class="book-author">{book.author}</h4>
+        this.setState({ 
+            isBookDialogOpen: true,
+            currentlySelectedBook: books.find((book) => book.id === id)
+        });
+    }
+
+    closeBookDialog() {
+        this.setState({ isBookDialogOpen: false });
+    }
+
+    render() {
+        const { currentlySelectedBook, books, isBookDialogOpen, filteredEntries, isFilteringBookEntries} = this.state;
+        const BookDialog = (isBookDialogOpen) ? <BookInformationDialog book={ currentlySelectedBook }
+                                                                       closeDialog={ this.closeBookDialog }
+                                                                       isBookRemovable={ false }/> : null;
+        const bookItems = (isFilteringBookEntries) ? filteredEntries : books;
+        const bookCollection = bookItems.map((book) => 
+          <div className="book" onClick={ this.openBookDialog.bind(this, book.id) }>
+              <img className="book-thumbnailImage" src={book.imageUrl} width="229" height="345"/>
+              <div className="book-infoContainer">
+                <h3 className="book-title">{book.title}</h3>
+                <h4 className="book-author">{book.author}</h4>
+              </div>
           </div>
         );
 
         return (
-            <div class="userBookCollection">
-              <h1>Available Books</h1>
-                { bookCollection }
+            <div className="page">
+                <Filter items={[this.state.books[0]]}
+                           stopFilteringEntries={() => this.setState({isFilteringBookEntries: false})}
+                           renderItems={(items) => this.setState({filteredEntries: items, isFilteringBookEntries: true})}
+                           url="http://google.com"/>
+                <div className="userBookCollection">
+                    { bookCollection }
+                </div>
+                { BookDialog }
             </div>
         );
     }
