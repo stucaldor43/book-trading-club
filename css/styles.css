@@ -12,6 +12,10 @@ body {
     margin: 0;
 }
 
+button {
+    cursor: pointer;
+}
+
 .page {
     padding: 64px 16px;
     max-width: 1200px;
@@ -312,4 +316,74 @@ body {
         min-width: 120px;
         width: auto;
     }
+}
+
+.userSettings ul {
+    padding: 0
+}
+
+@media (min-width: 573px) {
+    .userSettings ul {
+        margin: 0 auto;
+        max-width: 570px;
+    }
+}
+
+.userSettings li {
+    list-style: none;
+}
+
+@media (min-width: 573px) {
+    .userSettings li {
+        display: inline-block;
+    }
+}
+
+.userSettings-nameInput, .userSettings-cityInput {
+    padding: 12px 16px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    border: thin solid #c4c4c4;
+    border-radius: 3px;
+    margin: 0 16px 16px 0;
+    width: 100%;
+}
+
+@media (min-width: 573px) {
+    .userSettings-nameInput, .userSettings-cityInput {
+        width: auto;
+    }
+}
+
+.userSettings-stateDropDown {
+    padding: 12px 16px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    border: thin solid #c4c4c4;
+    border-radius: 3px;
+    margin: 0 16px 32px 0;
+    display: block;
+}
+
+.userSettings-saveChangesButton {
+    background-color: #663399;
+    color: #ffffff;
+    border: thin solid;
+    padding: 16px 16px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    border-radius: 3px;
+    width: 100%;
+}
+
+@media (min-width: 573px) {
+    .userSettings-saveChangesButton {
+        width: auto;
+        min-width: 150px;
+    }
+}
+
+.userSettings input:focus, .userSettings select:focus {
+    outline: none;
 }
