@@ -387,3 +387,74 @@ button {
 .userSettings input:focus, .userSettings select:focus {
     outline: none;
 }
+
+.tableContainer {
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: separate;
+}
+
+td {
+    padding: 16px 8px;
+}
+
+table button {
+    background-color: #2196f3;
+    color: #FFF;
+    border: thin solid;
+    padding: 16px 16px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.bookOfferDialog-inputContainer {
+    position: relative;
+}
+
+.bookOfferDialog-bookTitleInput {
+    padding: 16px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    border: thin solid grey;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    width: 100%;
+}
+
+@media (min-width: 573px) {
+    .bookOfferDialog-bookTitleInput {
+        max-width: 350px;
+    }
+}
+
+.autoComplete {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    top: 100%;
+    background-color: #f3f3f3;
+}
+
+.autoComplete-suggestion {
+    padding: 8px 16px;
+    color: #000;
+}
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    padding: 8px 16px;
+    margin-right: 8px;
+    border-radius: 8px;
+    color: #FFF;
+    background-color: #03A9F4;
+    text-decoration: none;
+}
