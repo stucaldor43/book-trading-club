@@ -28,7 +28,7 @@ ReactDom.render(
       console.log(data.status);
       callback();
     }}>
-      <Route path="/allbooks" component={AllBooks}/>
+      <Route path="/allbooks/:page" component={AllBooks}/>
       <Route path="/mybooks" component={MyBooks}/>
       <Route path="/settings" component={UserSettings}/>
       <Route path="/traderequests" component={TradeRequests}/>

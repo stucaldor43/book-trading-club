@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
     const books = await Book
                         .query()
                         .distinct('title', 'author')
-                        .select('book_details.author',
+                        .select('book.id as id', 'book_details.author',
                         'book_details.title', 'book_details.cover_image_url',
                         'book_details.description')
                         .join('book_details', 'book.id', 'book_details.fk_book_id')

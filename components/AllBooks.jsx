@@ -1,59 +1,14 @@
 import React from "react";
-import BookInformmationDialog from "./BookInformationDialog";
 import BookInformationDialog from "./BookInformationDialog";
 import Filter from "./Filter";
+import Pagination from "./Pagination.jsx";
 
 class AllBooks extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            books: [
-                {
-                    title: "Javascript: The Good Parts",
-                    author: "Douglas Crockford",
-                    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/5131OWtQRaL._SX381_BO1,204,203,200_.jpg"
-                },
-                {
-                    title: "JavaScript Patterns: Build Better Applications With Coding and Design Patterns",
-                    author: "Stoyan Stefanov",
-                    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/51%2BSiphz7AL._SX377_BO1,204,203,200_.jpg"
-                },
-                {
-                    title: "Effective JavaScript: 68 Specific Ways to Harness the Power of JavaScript (Effective Software Development Series)",
-                    author: "David Herman",
-                    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/5123h9QhY8L._SX379_BO1,204,203,200_.jpg"
-                },
-                {
-                    title: "Javascript: The Good Parts",
-                    author: "Douglas Crockford",
-                    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/5131OWtQRaL._SX381_BO1,204,203,200_.jpg"
-                },
-                {
-                    title: "JavaScript Patterns: Build Better Applications With Coding and Design Patterns",
-                    author: "Stoyan Stefanov",
-                    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/51%2BSiphz7AL._SX377_BO1,204,203,200_.jpg"
-                },
-                {
-                    title: "Effective JavaScript: 68 Specific Ways to Harness the Power of JavaScript (Effective Software Development Series)",
-                    author: "David Herman",
-                    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/5123h9QhY8L._SX379_BO1,204,203,200_.jpg"
-                },
-                {
-                    title: "Javascript: The Good Parts",
-                    author: "Douglas Crockford",
-                    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/5131OWtQRaL._SX381_BO1,204,203,200_.jpg"
-                },
-                {
-                    title: "JavaScript Patterns: Build Better Applications With Coding and Design Patterns",
-                    author: "Stoyan Stefanov",
-                    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/51%2BSiphz7AL._SX377_BO1,204,203,200_.jpg"
-                },
-                {
-                    title: "Effective JavaScript: 68 Specific Ways to Harness the Power of JavaScript (Effective Software Development Series)",
-                    author: "David Herman",
-                    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/5123h9QhY8L._SX379_BO1,204,203,200_.jpg"
-                }
-            ],
+            books: [],
+            maxPages: 1,
             isBookDialogOpen: false,
             isFilteringBookEntries: false,
             filteredEntries: [],
@@ -61,12 +16,18 @@ class AllBooks extends React.Component {
         }
         this.openBookDialog = this.openBookDialog.bind(this);
         this.closeBookDialog = this.closeBookDialog.bind(this);
+        this.goToPage = this.goToPage.bind(this);
     }
 
     componentDidMount() {
-        // get book data
+        this.goToPage(this.props.params.page);
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.params.page !== this.props.params.page) {
+            this.goToPage(this.props.params.page);
+        }
+    }
     openBookDialog(id, evt) {
         const { books } = this.state;
         this.setState({ 
@@ -79,15 +40,25 @@ class AllBooks extends React.Component {
         this.setState({ isBookDialogOpen: false });
     }
 
+    goToPage(page) {
+        fetch(`http://localhost:8080/api/book/?page=${page}`, {
+            credentials: 'include'
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            return this.setState({books: data.books, maxPages: data.totalPages});
+        })
+    }
+
     render() {
-        const { currentlySelectedBook, books, isBookDialogOpen, filteredEntries, isFilteringBookEntries} = this.state;
+        const { currentlySelectedBook, books, isBookDialogOpen, filteredEntries, isFilteringBookEntries, maxPages} = this.state;
         const BookDialog = (isBookDialogOpen) ? <BookInformationDialog book={ currentlySelectedBook }
                                                                        closeDialog={ this.closeBookDialog }
                                                                        isBookRemovable={ false }/> : null;
         const bookItems = (isFilteringBookEntries) ? filteredEntries : books;
         const bookCollection = bookItems.map((book) => 
           <div className="book" onClick={ this.openBookDialog.bind(this, book.id) }>
-              <img className="book-thumbnailImage" src={book.imageUrl} width="229" height="345"/>
+              <img className="book-thumbnailImage" src={book.cover_image_url} width="229" height="345"/>
               <div className="book-infoContainer">
                 <h3 className="book-title">{book.title}</h3>
                 <h4 className="book-author">{book.author}</h4>
@@ -105,6 +76,9 @@ class AllBooks extends React.Component {
                     { bookCollection }
                 </div>
                 { BookDialog }
+                <Pagination page={Number(this.props.params.page)}
+                            maxPages={maxPages}
+                            url={'/allbooks/'}/>
             </div>
         );
     }

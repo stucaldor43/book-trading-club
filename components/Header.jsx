@@ -41,7 +41,7 @@ class Header extends React.Component {
                 </div>
                 <nav className={ navigationClasses }>
                     <span onClick={ this.toggleMenuVisibility } className="header-navigation-closeButton">x</span>
-                    <Link to="/allbooks" className="header-navLink">Books</Link>
+                    <Link to="/allbooks/1" className="header-navLink">Books</Link>
                     <Link to="/mybooks" className="header-navLink">My Library</Link>
                     <Link to="/settings" className="header-navLink">Profile</Link>
                     <Link to="/traderequests" className="header-navLink">Requests</Link>

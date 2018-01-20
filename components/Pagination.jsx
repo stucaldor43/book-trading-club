@@ -1,8 +1,9 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 const Pagination = ({page, maxPages, url}) => {
-    const previousPageLink = (page >= 2 && page <= maxPages) ? <a className="pagination-previousLink" href={`${url}/?page=${page - 1}`}>← Prev </a> : null;
-    const nextPageLink = ((page + 1) <= maxPages) ? <a className="pagination-nextLink" href={`${url}/?page=${page + 1}`}>Next →</a> : null
+    const previousPageLink = (page >= 2 && page <= maxPages) ? <Link className="pagination-previousLink" to={`${url}${page - 1}`}>← Prev </Link> : null;
+    const nextPageLink = ((page + 1) <= maxPages) ? <Link className="pagination-nextLink" to={`${url}${page + 1}`}>Next →</Link> : null
     return (
         <div className="pagination">
             { previousPageLink }
