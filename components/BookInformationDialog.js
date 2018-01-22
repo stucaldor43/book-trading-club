@@ -3,12 +3,20 @@ import React from 'react';
 class BookInformationDialog extends React.Component {
     constructor(props) {
         super(props);
+        this.deleteBook = this.deleteBook.bind(this);
+    }
+
+    deleteBook() {
+        fetch(`http://localhost:8080/api/book/${this.props.book.id}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
     }
 
     render() {
         const { book, isBookRemovable } = this.props;
         const deleteBookButton = (isBookRemovable) ? <button className="bookDialog-deleteBookButton" 
-                                                             onClick={ this.props.deleteBook }>Delete</button> : null
+                                                             onClick={ this.deleteBook }>Delete</button> : null
         return (
             <div className="dialog">
                 <div className="wrapper">

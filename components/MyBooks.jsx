@@ -70,8 +70,7 @@ class MyBooks extends React.Component {
         const { books, isBookInformationDialogOpen, isAddBookDialogOpen, filteredEntries, isFilteringBookEntries } = this.state;
         const BookDialog = (isBookInformationDialogOpen) ? <BookInformationDialog book={ this.state.book } 
                                                                                   closeDialog={ this.closeBookInformationDialog } 
-                                                                                  isBookRemovable={ true } 
-                                                                                  deleteBook={ () => alert('book deleted!')}/> : null;
+                                                                                  isBookRemovable={ true }/> : null;
         const AddBookView = (isAddBookDialogOpen) ? <AddBookDialog closeDialog={ this.closeAddBookDialog }/> : null;
         const bookItems = (isFilteringBookEntries) ? filteredEntries : books;
         const bookCollection = bookItems.map((book) => 
