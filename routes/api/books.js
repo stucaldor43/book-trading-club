@@ -31,6 +31,35 @@ router.get("/", async (req, res) => {
     res.json(Object.assign({}, { books, totalPages }));
 });
 
+
+router.get("/search", async(req, res) => {
+    const bookTotal = (await Book
+        .query()
+        .distinct('title', 'author')
+        .select('book_details.author',
+        'book_details.title', 'book_details.cover_image_url',
+        'book_details.description')
+        .join('book_details', 'book.id', 'book_details.fk_book_id')
+        .where("title", "ilike", (req.query.term.trim().length < 1) ? '' : `%${ req.query.term }%`)).length;
+    const totalPages = Math.max((bookTotal % 20 === 0) ? bookTotal / 20: Math.floor(bookTotal / 20) + 1 , 1);                    
+    const page = req.query.page || 1;
+    const maxRecordsPerPage = 20;
+    const items = await Book
+            .query()
+            .distinct('title', 'author')
+            .select('book.id as id', 'book_details.author',
+            'book_details.title', 'book_details.cover_image_url',
+            'book_details.description')
+            .join('book_details', 'book.id', 'book_details.fk_book_id')
+            .where("title", "ilike", (req.query.term.trim().length < 1) ? '' : `%${ req.query.term }%`)
+            .offset((page - 1) * maxRecordsPerPage)
+            .limit(maxRecordsPerPage)
+    if (!items) {
+    res.sendStatus(400)
+    }
+    res.json(Object.assign({}, { items, totalPages }));
+});
+
 router.get("/:id", async (req, res) => {
     const book = await Book
                         .query()
