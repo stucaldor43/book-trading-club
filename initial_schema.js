@@ -25,9 +25,9 @@ module.exports.up = function(knex) {
         table.integer("fk_book_id").unsigned().references("id").inTable("book").onDelete("CASCADE").notNullable();
     })
     .createTable("offer", (table) => {
+        table.increments("id").primary();
         table.integer("requested_book").unsigned().references("id").inTable("book").onDelete("CASCADE").notNullable();
         table.integer("offered_book").unsigned().references("id").inTable("book").onDelete("CASCADE").notNullable();
-        table.primary(["requested_book", "offered_book"]);
     })
     .catch((reason) => console.log(reason));
 };
