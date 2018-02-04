@@ -1,5 +1,5 @@
-import React from 'react';
-import jsonp from 'jsonp';
+import React from "react";
+import jsonp from "jsonp";
 import { debounce } from './../helpers/utils'
 
 class AddBookDialog extends React.Component {
@@ -11,7 +11,7 @@ class AddBookDialog extends React.Component {
 
     fetchBookData(isbn) {
         jsonp(`https://www.googleapis.com/books/v1/volumes?q=+isbn:${isbn}&key=AIzaSyDYdUSvMksIolQN4oFMsVRgrI_6m66heWo`, (err, data) => {
-            if (data.error) { return; }
+            if (data.error || data.totalItems === 0) { return; }
             const item = data.items[0];
             const bookInfo = {
                 author: item.volumeInfo.authors[0],
