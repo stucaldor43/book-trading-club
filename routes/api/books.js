@@ -74,18 +74,53 @@ router.get("/:id", async (req, res) => {
     res.json({ book });
 });
 
+router.patch("/trade", jsonparser, async (req, res) => {
+    const tradeProposer = await Client
+                                    .query()
+                                    .where("display_name", req.body.tradeProposerName)
+                                    .first();
+    const tradeConfirmer = await Client
+                                    .query()
+                                    .where("display_name", req.session.username || req.ip)
+                                    .first();
+    const proposedOffer = await Offer
+                                    .query()
+                                    .where("requested_book", req.body.tradeConfirmerBookId)
+                                    .andWhere("offered_book", req.body.tradeProposerBookId)
+                                    .first();
+    if (proposedOffer) { res.sendStatus(403);}
+    await Book
+            .query()
+            .patch({fk_client_id: tradeProposer.id})
+            .where("id", req.body.tradeConfirmerBookId);
+    await Book
+            .query()
+            .patch({fk_client_id: tradeConfirmer.id})
+            .where("id", req.body.tradeProposerBookId);
+    await Offer
+            .query()
+            .delete()
+            .where("requested_book", req.body.tradeConfirmerBookId)
+            .andWhere("offered_book", req.body.tradeProposerBookId);
+});
+
 router.get("/:id/owners", async (req, res) => {
+    const user = await Client
+                        .query()
+                        .where("display_name", req.session.username || req.ip)
+                        .first();
     const book = await Book
                         .query()
                         .findById(req.params.id);
     const details = await book.$relatedQuery("metadata").first();
     const owners = await Book
                             .query()
-                            .select("display_name")
+                            .select("*")
                             .join('client', 'book.fk_client_id', 'client.id')
                             .join('book_details', 'book.id', 'book_details.fk_book_id')
                             .where('author', details.author)
                             .andWhere('title', details.title)
+                            // .whereNot("display_name", req.session.username);
     res.json({ owners });
 });
 
