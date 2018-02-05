@@ -68,10 +68,9 @@ class AllBooks extends React.Component {
 
         return (
             <div className="page">
-                <Filter items={[this.state.books[0]]}
-                           stopFilteringEntries={() => this.setState({isFilteringBookEntries: false})}
-                           renderItems={(items) => this.setState({filteredEntries: items, isFilteringBookEntries: true})}
-                           url="http://google.com"/>
+                <Filter stopFilteringEntries={() => this.setState({isFilteringBookEntries: false})}
+                        renderItems={(items) => this.setState({filteredEntries: items, isFilteringBookEntries: true})}
+                        url="http://localhost:8080/api/book/search/?term="/>
                 <div className="userBookCollection">
                     { bookCollection }
                 </div>
