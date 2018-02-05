@@ -339,7 +339,7 @@ button {
     }
 }
 
-.userSettings-nameInput, .userSettings-cityInput {
+.userSettings-firstNameInput, .userSettings-lastNameInput, .userSettings-cityInput {
     padding: 12px 16px;
     font-size: 14px;
     font-family: "Roboto", sans-serif;
@@ -350,7 +350,7 @@ button {
 }
 
 @media (min-width: 573px) {
-    .userSettings-nameInput, .userSettings-cityInput {
+    .userSettings-firstNameInput, .userSettings-lastNameInput, .userSettings-cityInput {
         width: auto;
     }
 }
@@ -430,6 +430,19 @@ table button {
     .bookOfferDialog-bookTitleInput {
         max-width: 350px;
     }
+}
+
+.bookOfferDialog-submitOfferButton {
+    position: relative;
+    left: 250px;
+    background-color: #2196f3;
+    color: #FFF;
+    border: thin solid;
+    padding: 16px 16px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    border-radius: 3px;
 }
 
 .autoComplete {
