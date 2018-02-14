@@ -29,7 +29,7 @@ ReactDom.render(
       callback();
     }}>
       <Route path="/allbooks/:page" component={AllBooks}/>
-      <Route path="/mybooks" component={MyBooks}/>
+      <Route path="/mybooks/:page" component={MyBooks}/>
       <Route path="/settings" component={UserSettings}/>
       <Route path="/traderequests" component={TradeRequests}/>
     </Route>

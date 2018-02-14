@@ -1,7 +1,7 @@
 import React from "react";
 import BookInformationDialog from "./BookInformationDialog";
-import Filter from "./Filter";
 import Pagination from "./Pagination.jsx";
+import BookSearchResults from "./BookSearchResults";
 
 class AllBooks extends React.Component {
     constructor(props) {
@@ -12,11 +12,14 @@ class AllBooks extends React.Component {
             isBookDialogOpen: false,
             isFilteringBookEntries: false,
             filteredEntries: [],
-            currentlySelectedBook: null
+            currentlySelectedBook: null,
+            searchInput: ''
         }
+        this.changeHandler = this.changeHandler.bind(this);
         this.openBookDialog = this.openBookDialog.bind(this);
         this.closeBookDialog = this.closeBookDialog.bind(this);
         this.goToPage = this.goToPage.bind(this);
+        this.renderFullBookList = this.renderFullBookList.bind(this);
     }
 
     componentDidMount() {
@@ -27,7 +30,17 @@ class AllBooks extends React.Component {
         if (prevProps.params.page !== this.props.params.page) {
             this.goToPage(this.props.params.page);
         }
+        const {searchInput} = this.state;
+        if (prevState.searchInput.length > 0 && searchInput.length === 0) {
+            location.href = "/#/allbooks/1";
+        }
     }
+
+    changeHandler(evt) {
+        evt.persist();
+        this.setState({[evt.target.name]: evt.target.value});
+    }
+
     openBookDialog(id, evt) {
         const { books } = this.state;
         this.setState({ 
@@ -50,8 +63,8 @@ class AllBooks extends React.Component {
         })
     }
 
-    render() {
-        const { currentlySelectedBook, books, isBookDialogOpen, filteredEntries, isFilteringBookEntries, maxPages} = this.state;
+    renderFullBookList() {
+        const {currentlySelectedBook, books, isBookDialogOpen, filteredEntries, isFilteringBookEntries} = this.state;
         const BookDialog = (isBookDialogOpen) ? <BookInformationDialog book={ currentlySelectedBook }
                                                                        closeDialog={ this.closeBookDialog }
                                                                        isBookRemovable={ false }/> : null;
@@ -67,14 +80,21 @@ class AllBooks extends React.Component {
         );
 
         return (
-            <div className="page">
-                <Filter stopFilteringEntries={() => this.setState({isFilteringBookEntries: false})}
-                        renderItems={(items) => this.setState({filteredEntries: items, isFilteringBookEntries: true})}
-                        url="http://localhost:8080/api/book/search/?term="/>
+            <div>
                 <div className="userBookCollection">
                     { bookCollection }
                 </div>
                 { BookDialog }
+            </div>
+        );
+    }
+
+    render() {
+        const {maxPages, searchInput} = this.state;
+        return (
+            <div className="page">
+                <input name="searchInput" value={searchInput} onChange={this.changeHandler}/>
+                {(searchInput.trim().length === 0) ? this.renderFullBookList() : <BookSearchResults url={`http://localhost:8080/api/book/search/?term=${searchInput}&page=`}/>}
                 <Pagination page={Number(this.props.params.page)}
                             maxPages={maxPages}
                             url={'/allbooks/'}/>

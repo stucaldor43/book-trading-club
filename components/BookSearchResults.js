@@ -51,11 +51,11 @@ class BookSearchResults extends React.Component {
     }
 
     render() {
-        const {url} = this.props;
+        const {url, canBooksBeDeleted} = this.props;
         const {page, maxPages, isBookDialogOpen, currentlySelectedBook} = this.state;
         const BookDialog = (isBookDialogOpen) ? <BookInformationDialog book={ currentlySelectedBook }
                                                                        closeDialog={ () => this.setState({isBookDialogOpen: false}) }
-                                                                       isBookRemovable={ false }/> : null;
+                                                                       isBookRemovable={ canBooksBeDeleted }/> : null;
         const bookCollection = this.state.books.map((book) => 
           <div className="book" onClick={ () => this.setState({isBookDialogOpen: true, currentlySelectedBook: book}) }>
               <img className="book-thumbnailImage" src={book.cover_image_url} width="229" height="345"/>
@@ -81,5 +81,9 @@ class BookSearchResults extends React.Component {
         );
     }
 }
+
+Pagination.defaultProps = {
+    canBooksBeDeleted: false
+};
 
 export default BookSearchResults;
