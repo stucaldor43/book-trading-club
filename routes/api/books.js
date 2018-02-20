@@ -44,7 +44,7 @@ router.get("/mybooks", async(req, res) => {
         'book_details.description')
         .join('book_details', 'book.id', 'book_details.fk_book_id')
         .where('fk_client_id', user.id)).length;
-    const maxRecordsPerPage = 1;
+    const maxRecordsPerPage = 20;
     const totalPages = Math.max((bookTotal % maxRecordsPerPage === 0) ? bookTotal / maxRecordsPerPage: Math.floor(bookTotal / maxRecordsPerPage) + 1 , 1);                    
     const page = req.query.page || 1;
     const books = await Book
