@@ -27,7 +27,7 @@ class AddBookDialog extends React.Component {
                 },
                 credentials: 'include'
             })
-            .then(() => alert('book added!'));
+            .then(() => this.props.refreshPage());
         });
         // don't commit with api key
     } 

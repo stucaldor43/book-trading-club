@@ -13,9 +13,9 @@ router.get("/", async (req, res) => {
                         'book_details.title', 'book_details.cover_image_url',
                         'book_details.description')
                         .join('book_details', 'book.id', 'book_details.fk_book_id')).length;
-    const totalPages = Math.max((bookTotal % 20 === 0) ? bookTotal / 20: Math.floor(bookTotal / 20) + 1 , 1);                    
-    const page = req.query.page || 1;
     const maxRecordsPerPage = 20;
+    const totalPages = Math.max((bookTotal % maxRecordsPerPage === 0) ? bookTotal / maxRecordsPerPage: Math.floor(bookTotal / maxRecordsPerPage) + 1 , 1);                    
+    const page = req.query.page || 1;
     const books = await Book
                         .query()
                         .distinct('title', 'author')
@@ -106,9 +106,9 @@ router.get("/search", async(req, res) => {
         'book_details.description')
         .join('book_details', 'book.id', 'book_details.fk_book_id')
         .where("title", "ilike", (req.query.term.trim().length < 1) ? '' : `%${ req.query.term }%`)).length;
-    const totalPages = Math.max((bookTotal % 20 === 0) ? bookTotal / 20: Math.floor(bookTotal / 20) + 1 , 1);                    
-    const page = req.query.page || 1;
     const maxRecordsPerPage = 20;
+    const totalPages = Math.max((bookTotal % maxRecordsPerPage === 0) ? bookTotal / maxRecordsPerPage: Math.floor(bookTotal / maxRecordsPerPage) + 1 , 1);                    
+    const page = req.query.page || 1;
     const items = await Book
             .query()
             .distinct('title', 'author')

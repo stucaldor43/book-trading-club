@@ -10,7 +10,8 @@ class BookInformationDialog extends React.Component {
         fetch(`http://localhost:8080/api/book/${this.props.book.id}`, {
             method: 'DELETE',
             credentials: 'include'
-        });
+        })
+        .then(() => this.props.refreshPage());
     }
 
     render() {
@@ -36,5 +37,9 @@ class BookInformationDialog extends React.Component {
         );
     }
 }
+
+BookInformationDialog.defaultProps = {
+    refreshPage: () => {}
+};
 
 export default BookInformationDialog;
