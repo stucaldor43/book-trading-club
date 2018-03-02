@@ -8,7 +8,6 @@ import UserSettings from "./components/UserSettings.jsx";
 import TradeRequests from "./components/TradeRequests.jsx";
 import { domain, port, protocol } from "./config";
 import "./index.html";
-import "./css/styles.css";
 
 ReactDom.render(
   <Router history={hashHistory}>

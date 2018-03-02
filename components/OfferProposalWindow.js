@@ -7,7 +7,7 @@ class OfferProposalWindow extends React.Component {
         super(props);
         this.state = {
             info: [],
-            currentPage: 1,
+            page: 1,
             maxPages: 1,
             isDialogOpen: false,
             bookId: null
@@ -15,10 +15,12 @@ class OfferProposalWindow extends React.Component {
         this.clickHandler = this.clickHandler.bind(this);
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
+        this.nextPage = this.nextPage.bind(this);
+        this.previousPage = this.previousPage.bind(this);
     }
 
     componentDidMount() {
-        fetch(`http://localhost:8080/api/book/1/owners`, {
+        fetch(`http://localhost:8080/api/book/${this.props.id}/owners`, {
             credentials: 'include'
         })
         .then((res) => res.json())
@@ -30,7 +32,8 @@ class OfferProposalWindow extends React.Component {
                         display_name: info.display_name,
                         book_id: info.id
                     };
-                })
+                }),
+                maxPages: data.totalPages
             });
         })
     }
@@ -48,9 +51,21 @@ class OfferProposalWindow extends React.Component {
         this.setState({isDialogOpen: false});
     }
 
+    nextPage(e) {
+        e.preventDefault();
+        this.setState((state) => ({page: state.page + 1}));
+    }
+
+    previousPage(e) {
+        e.preventDefault();
+        this.setState((state) => ({page: state.page - 1}));
+    }
+
     render() {
+        const {page, maxPages} = this.state;
+
         return (
-            <div>
+            <div className="offerProposalWindow">
                 <div className="tableContainer">
                     <table>
                         <caption>Users Possessing This Book</caption>
@@ -68,6 +83,11 @@ class OfferProposalWindow extends React.Component {
                         })}
                     </table>
                 </div>
+                <Pagination page={page} 
+                            maxPages={maxPages} 
+                            url={''}
+                            previousLinkClickHandler={this.previousPage}
+                            nextLinkClickHandler={this.nextPage}/>
                 {(this.state.isDialogOpen) ? <BookOfferDialog requestedBookId={this.state.bookId} close={this.state.closeDialog}/> : null}
             </div>
         );

@@ -178,6 +178,16 @@ router.get("/:id/owners", async (req, res) => {
                         .query()
                         .findById(req.params.id);
     const details = await book.$relatedQuery("metadata").first();
+    const bookTotal = (await Book
+                            .query()
+                            .select("*")
+                            .join('client', 'book.fk_client_id', 'client.id')
+                            .join('book_details', 'book.id', 'book_details.fk_book_id')
+                            .where('author', details.author)
+                            .andWhere('title', details.title)).length
+    const maxRecordsPerPage = 20;
+    const totalPages = Math.max((bookTotal % maxRecordsPerPage === 0) ? bookTotal / maxRecordsPerPage: Math.floor(bookTotal / maxRecordsPerPage) + 1 , 1);                    
+    const page = req.query.page || 1;
     const owners = await Book
                             .query()
                             .select("*")
@@ -185,8 +195,10 @@ router.get("/:id/owners", async (req, res) => {
                             .join('book_details', 'book.id', 'book_details.fk_book_id')
                             .where('author', details.author)
                             .andWhere('title', details.title)
+                            .offset((page - 1) * maxRecordsPerPage)
+                            .limit(maxRecordsPerPage)
                             // .whereNot("display_name", req.session.username);
-    res.json({ owners });
+    res.json({ owners, totalPages });
 });
 
 router.post("/", jsonparser, async (req, res) => {

@@ -53,10 +53,10 @@ class BookOfferDialog extends React.Component {
             <div className="bookOfferDialog">
                 <div className="bookOfferDialog-inputContainer">
                     <input name="bookTitleInput" className="bookOfferDialog-bookTitleInput" type="text" onKeyUp={this.search} onChange={this.changeHandler} value={this.state.bookTitleInput}/>
+                    <button className="bookOfferDialog-submitOfferButton" onClick={this.submitOffer}>Submit Offer</button>
                     <AutoComplete suggestions={autoCompleteSuggestions}
                                   completeInputText={this.fillTextboxUsingSuggestion}/>
                 </div>
-                <button className="bookOfferDialog-submitOfferButton" onClick={this.submitOffer}>Submit Offer</button>
             </div>
         );
     }

@@ -1,4 +1,5 @@
 import React from "react";
+import OfferProposalWindow from "./OfferProposalWindow";
 
 class BookInformationDialog extends React.Component {
     constructor(props) {
@@ -32,6 +33,7 @@ class BookInformationDialog extends React.Component {
                     <div>
                         { deleteBookButton }
                     </div>
+                    <OfferProposalWindow id={this.props.book.id}/>
                 </div>
             </div>
         );

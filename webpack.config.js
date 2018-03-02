@@ -69,7 +69,7 @@ module.exports = {
         new BrowserSyncPlugin({
             host: 'localhost',
             port: 8081,
-            files: "dist/**/*.*",
+            files: ["dist/**/*.*", "css/**/*.*"],
             server: {
                 baseDir: ["./", "dist"],
                 index: "index.html"
