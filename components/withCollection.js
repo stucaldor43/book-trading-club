@@ -2,7 +2,7 @@ import React from 'react';
 import BookGallery from './BookGallery';
 import AddBookDialog from './AddBookDialog';
 
-const withCollection = bookCollectionURL => collectionSearchURl => deleteableBooks => showAddBookButton => {
+const withCollection = bookCollectionURL => collectionSearchURl => deleteableBooks => showAddBookButton => showTradeProposalWindow => {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -38,7 +38,7 @@ const withCollection = bookCollectionURL => collectionSearchURl => deleteableBoo
                         {showAddBookButton && <button className="addBookButton" onClick={ this.openAddBookDialog }>Add book</button>}
                     </div>
                     <BookGallery ref={c => this.childComponent = c} url={searchInput.trim().length === 0  ? bookCollectionURL : collectionSearchURl + `/?term=${searchInput}&page=`}
-                                 canBooksBeDeleted={deleteableBooks}/>
+                                 canBooksBeDeleted={deleteableBooks} showTradeProposalWindow={showTradeProposalWindow}/>
                     { isAddBookDialogOpen && <AddBookDialog closeDialog={ this.closeAddBookDialog } refreshPage={() => this.childComponent.goToPage()}/> }
                 </div> 
             );

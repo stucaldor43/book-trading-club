@@ -51,12 +51,13 @@ class BookGallery extends React.Component {
     }
 
     render() {
-        const {url, canBooksBeDeleted} = this.props;
+        const {url, canBooksBeDeleted, showTradeProposalWindow} = this.props;
         const {page, maxPages, isBookDialogOpen, currentlySelectedBook} = this.state;
         const BookDialog = (isBookDialogOpen) ? <BookInformationDialog book={ currentlySelectedBook }
                                                                        closeDialog={ () => this.setState({isBookDialogOpen: false}) }
                                                                        isBookRemovable={ canBooksBeDeleted }
-                                                                       refreshPage={this.goToPage}/> : null;
+                                                                       refreshPage={this.goToPage}
+                                                                       showTradeProposalWindow={showTradeProposalWindow}/> : null;
         const bookCollection = this.state.books.map((book) => 
           <div className="book" onClick={ () => this.setState({isBookDialogOpen: true, currentlySelectedBook: book}) }>
               <img className="book-thumbnailImage" src={book.cover_image_url} width="229" height="345"/>

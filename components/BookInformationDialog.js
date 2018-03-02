@@ -16,7 +16,7 @@ class BookInformationDialog extends React.Component {
     }
 
     render() {
-        const { book, isBookRemovable } = this.props;
+        const { book, isBookRemovable, showTradeProposalWindow} = this.props;
         const deleteBookButton = (isBookRemovable) ? <button className="bookDialog-deleteBookButton" 
                                                              onClick={ this.deleteBook }>Delete</button> : null
         return (
@@ -33,7 +33,7 @@ class BookInformationDialog extends React.Component {
                     <div>
                         { deleteBookButton }
                     </div>
-                    <OfferProposalWindow id={this.props.book.id}/>
+                    {(showTradeProposalWindow) ? <OfferProposalWindow id={this.props.book.id}/> : null }
                 </div>
             </div>
         );
