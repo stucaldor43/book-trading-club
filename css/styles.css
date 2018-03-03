@@ -233,20 +233,20 @@ button {
     right: 0;
     top: 0;
     bottom: 0;
+    overflow: auto;
 }
 
 .wrapper {
     margin: 0 auto;
     width: 90%;
     max-width: 776px;
-    max-height: 435px;
+    min-height: 435px;
     overflow: hidden;
     padding: 32px 16px 16px 16px;
     background-color: #FFF;
     border-radius: 4px;
     position: relative;
-    top: 40%;
-    transform: translateY(-50%);
+    top: 20%;
 }
 
 .bookDialog-closeButton {
@@ -393,17 +393,28 @@ button {
 }
 
 table {
-    border-collapse: separate;
+    border-collapse: collapse;
+    margin: 0 auto;
+    border: thin solid #e5e5e5;
+}
+
+tr:nth-child(odd) {
+    background-color: #e5e5e5;
 }
 
 td {
     padding: 16px 8px;
+    text-align: center;
+}
+
+th {
+    padding: 32px 0;
 }
 
 table button {
     background-color: #2196f3;
     color: #FFF;
-    border: thin solid;
+    border: none;
     padding: 16px 16px;
     font-size: 14px;
     font-family: "Roboto", sans-serif;
@@ -433,8 +444,6 @@ table button {
 }
 
 .bookOfferDialog-submitOfferButton {
-    position: relative;
-    left: 250px;
     background-color: #2196f3;
     color: #FFF;
     border: thin solid;
@@ -450,7 +459,7 @@ table button {
     padding: 0;
     list-style: none;
     position: absolute;
-    top: 100%;
+    top: 59px;
     background-color: #f3f3f3;
 }
 
@@ -470,4 +479,21 @@ table button {
     color: #FFF;
     background-color: #03A9F4;
     text-decoration: none;
+}
+
+.offerProposalWindow {
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 450px;
+}
+
+.offerProposalWindow:before {
+    display: table;
+    content: "";
+    background-color: #e5e5e5;
+    height: 1px;
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }

@@ -64,22 +64,8 @@ class TradeRequests extends React.Component {
                                 </tr>
                             )
                         })}
-                        <tr>
-                            <td>The Search for Red October</td>
-                            <td>Harry Potter and the Sorceror's Stone</td>
-                            <td>SamsonTheDestroyer84</td>
-                            <td><button>Confirm</button></td>
-                        </tr>
-                        <tr>
-                            <td>Lord of the Rings</td>
-                            <td>Star Trek: The Next Generation</td>
-                            <td>BickleBartThe42nd</td>
-                            <td><button>Confirm</button></td>
-                        </tr>
                     </table>
                 </div>
-                <BookOfferDialog/>
-                <OfferProposalWindow/>
                 {/* <Pagination page={2} maxPages={3} url={'http://localhost:8080'}/> */}
             </div>
         );
