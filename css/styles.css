@@ -336,6 +336,7 @@ button {
 @media (min-width: 573px) {
     .userSettings li {
         display: inline-block;
+        width: 50%;
     }
 }
 
@@ -345,13 +346,14 @@ button {
     font-family: "Roboto", sans-serif;
     border: thin solid #c4c4c4;
     border-radius: 3px;
-    margin: 0 16px 16px 0;
+    margin: 0 16px 32px 0;
     width: 100%;
 }
 
 @media (min-width: 573px) {
     .userSettings-firstNameInput, .userSettings-lastNameInput, .userSettings-cityInput {
         width: auto;
+        max-width: 250px;
     }
 }
 
@@ -365,6 +367,11 @@ button {
     display: block;
 }
 
+.userSettings li:nth-child(0n + 5) {
+    width: 100%;
+    max-width: 535px;
+}
+
 .userSettings-saveChangesButton {
     background-color: #663399;
     color: #ffffff;
@@ -374,13 +381,13 @@ button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     border-radius: 3px;
-    width: 100%;
+    min-width: 150px;
 }
 
 @media (min-width: 573px) {
     .userSettings-saveChangesButton {
-        width: auto;
-        min-width: 150px;
+        width: 100%;
+        max-width: 478px;
     }
 }
 
@@ -396,6 +403,7 @@ table {
     border-collapse: collapse;
     margin: 0 auto;
     border: thin solid #e5e5e5;
+    min-width: 80%;
 }
 
 tr:nth-child(odd) {
@@ -420,7 +428,6 @@ table button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     border-radius: 3px;
-    width: 100%;
 }
 
 .bookOfferDialog-inputContainer {
