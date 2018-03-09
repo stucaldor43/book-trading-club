@@ -5,14 +5,14 @@ import { domain, port, protocol } from "./../config";
 class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.signIn = this.signIn.bind(this);
-        this.toggleMenuVisibility = this.toggleMenuVisibility.bind(this);
         this.state = {
             isNavOpen: false
         };
+        this.redirectToTwitter = this.redirectToTwitter.bind(this);
+        this.toggleMenuVisibility = this.toggleMenuVisibility.bind(this);
     }
 
-    async signIn() {
+    async redirectToTwitter() {
         const response = await fetch(`${protocol}://${domain}:${port}/api/get_request_token`, {credentials: "include"});
         const json = await response.json();
         localStorage.setItem("token", json.data.token);
@@ -31,6 +31,11 @@ class Header extends React.Component {
     render() {
         const hamburgerClasses = "hamburger " + (this.state.isNavOpen ? "hamburger-isNotPresent" : "");
         const navigationClasses = "header-navigation " + (this.state.isNavOpen ? "header-navigation-isPresent" : "header-navigation-isNotPresent");
+        const userActionButton = (this.props.isSignedIn) ? <button className="header-logoutButton" onClick={ this.props.logOutHandler }>Sign Out</button> : <button className="header-loginButton" onClick={ this.redirectToTwitter }>Sign In</button>;
+        const signedInUserLinks = (this.props.isSignedIn) ? <span><Link to="/mybooks/1" className="header-navLink">My Library</Link>
+        <Link to="/settings" className="header-navLink">Profile</Link>
+        <Link to="/traderequests" className="header-navLink">Requests</Link></span> : null;
+
         return (
             <header className="header">
               <div className="header-navWrapper">
@@ -39,15 +44,13 @@ class Header extends React.Component {
                     <div className="bar"></div>
                     <div className="bar"></div>
                 </div>
+                <div className="header-actions">
+                    { userActionButton }
+                </div>
                 <nav className={ navigationClasses }>
                     <span onClick={ this.toggleMenuVisibility } className="header-navigation-closeButton">x</span>
                     <Link to="/allbooks/1" className="header-navLink">Books</Link>
-                    <Link to="/mybooks/1" className="header-navLink">My Library</Link>
-                    <Link to="/settings" className="header-navLink">Profile</Link>
-                    <Link to="/traderequests" className="header-navLink">Requests</Link>
-                    {/* <button onClick={ this.signIn }>Sign In</button>
-                    <button onClick={ () => fetch("http://localhost:8080/api/client/4",  {credentials: "include"})} >Test sessions </button>
-                    { this.props.children } */}
+                    { signedInUserLinks }
                 </nav>
               </div>
               <div className="header-logo">
