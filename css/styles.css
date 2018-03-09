@@ -16,6 +16,10 @@ button {
     cursor: pointer;
 }
 
+input:focus {
+    outline: none;
+}
+
 .page {
     padding: 64px 16px;
     max-width: 1200px;
@@ -28,9 +32,11 @@ button {
     }
 }
 
-.hamburger {
+.header-navWrapper .hamburger {
+    padding: 23px 0;
     max-width: 1200px;
-    margin: 21px auto 0 auto;
+    margin: 0 auto;
+    float: left;
 }
 
 @media (min-width: 573px) {
@@ -50,12 +56,14 @@ button {
 }
 
 .header-navWrapper {
-    position: fixed;
-    top: 0;
+    padding: 0 16px;
     background-color: #81b2ff;
-    left: 0;
-    right: 0;
-    height: 70px;
+}
+
+.header-navWrapper:after {
+    display: table;
+    content: "";
+    clear: both;
 }
 
 .header-navWrapper > * {
@@ -66,6 +74,13 @@ button {
     max-width: 1200px;
     margin: 0 auto;
     display: none;
+    float: left;
+}
+
+@media(max-width: 573px) {
+    .header-navigation {
+        float: none;
+    }
 }
 
 @media (max-width: 573px) {
@@ -100,7 +115,7 @@ button {
         display: inline;
         position: absolute;
         top: 0;
-        right: 20px;
+        right: 23px;
         font-size: 25px;
         color: white;
         cursor: pointer;
@@ -121,8 +136,37 @@ button {
     }
 }
 
+.header-actions {
+    padding: 23px 23px 23px 0;
+    float: right;
+}
+
+@media(min-width: 573px) {
+    .header-actions {
+        padding: 16px 23px 23px 0;
+    }
+}
+
+@media (max-width: 573px) {
+    .header-actions {
+        float: none;
+        text-align: right;
+    }
+}
+
+.header-loginButton, .header-logoutButton {
+    background-color: #ffffff;
+    color: #81b2ff;
+    border: thin solid #e5e5e5;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
+
 .header-logo {
-    padding: 128px 32px 58px 32px;
+    padding: 58px 32px 58px 32px;
     background-color: #f6f6f6;
     text-align: center;
     font-size: 40px;
@@ -140,7 +184,7 @@ button {
 } */
 
 .myBooks-buttonContainer {
-    margin-bottom: 16px;
+    margin-bottom: 32px;
 }
 
 @media (max-width: 573px) {
@@ -503,4 +547,13 @@ table button {
     width: 100%;
     margin-top: 16px;
     margin-bottom: 16px;
+}
+
+[name=searchInput] {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    border: thin solid #c4c4c4;
+    border-radius: 3px;
+    margin-right: 16px;
 }
