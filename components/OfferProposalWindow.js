@@ -1,6 +1,7 @@
 import React from "react";
 import Pagination from './Pagination.jsx';
 import BookOfferDialog from './BookOfferDialog';
+import { backend } from './../config';
 
 class OfferProposalWindow extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class OfferProposalWindow extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://localhost:8080/api/book/${this.props.id}/owners`, {
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/book/${this.props.id}/owners`, {
             credentials: 'include'
         })
         .then((res) => res.json())

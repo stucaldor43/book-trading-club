@@ -1,4 +1,5 @@
 import React from "react";
+import { backend } from './../config';
 
 class UserSettings extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class UserSettings extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/api/address', {
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/address`, {
             credentials: 'include'
         })
         .then((res) => res.json())
@@ -57,7 +58,7 @@ class UserSettings extends React.Component {
             first_name: document.querySelector(".userSettings-firstNameInput").value,
             last_name: document.querySelector(".userSettings-lastNameInput").value
         };
-        fetch('http://localhost:8080/api/address', {
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/address`, {
             method: 'PATCH',
             body: JSON.stringify(userData),
             headers: {

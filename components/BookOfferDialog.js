@@ -1,6 +1,7 @@
 import React from "react";
 import {debounce} from './../helpers/utils';
 import AutoComplete from './AutoComplete';
+import { backend } from './../config';
 
 class BookOfferDialog extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class BookOfferDialog extends React.Component {
     }
 
     search() {
-        fetch(`http://localhost:8080/api/book/search/?term=${ this.state.bookTitleInput }`, {credentials: "include"})
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/book/search/?term=${ this.state.bookTitleInput }`, {credentials: "include"})
             .then((response) => response.json())
             .then(data => {
                 return this.setState({ autoCompleteSuggestions: data.items.slice(0, 5).map((item) => item.title) });
@@ -30,7 +31,7 @@ class BookOfferDialog extends React.Component {
 
     submitOffer() {
         const data = {requested_book_id: this.props.requestedBookId, offered_book_title: this.state.bookTitleInput};
-        fetch(`http://localhost:8080/api/offer`, {
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/offer`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

@@ -1,7 +1,8 @@
 import React from "react";
 import withCollection from "./withCollection";
+import { backend } from './../config';
 
-const MyBooks = withCollection('http://localhost:8080/api/book/mybooks/?page=')
-('http://localhost:8080/api/book/mybooks/search')(true)(true)(false);
+const MyBooks = withCollection(`${backend.protocol}://${backend.domain}:${backend.port}/api/book/mybooks/?page=`)
+(`${backend.protocol}://${backend.domain}:${backend.port}/api/book/mybooks/search`)(true)(true)(false);
 
 export default MyBooks;

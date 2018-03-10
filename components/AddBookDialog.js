@@ -1,6 +1,7 @@
 import React from "react";
 import jsonp from "jsonp";
-import { debounce } from './../helpers/utils'
+import { debounce } from './../helpers/utils';
+import { backend } from './../config';
 
 class AddBookDialog extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class AddBookDialog extends React.Component {
                 book_thumbnail_url: item.volumeInfo.imageLinks.thumbnail,
                 description: item.volumeInfo.description || '',
             };
-            fetch('http://localhost:8080/api/book', {
+            fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/book`, {
                 method: 'POST',
                 body: JSON.stringify(bookInfo),
                 headers: {

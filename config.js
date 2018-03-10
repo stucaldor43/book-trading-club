@@ -1,8 +1,9 @@
-let config = {};
-config = {
+const backend = {
   protocol: "http",
   domain: "localhost",
   port: 8080
-};
+}
 
-module.exports = config;
+module.exports = {
+  backend
+};

@@ -2,6 +2,7 @@ import React from "react";
 import BookOfferDialog from './BookOfferDialog';
 import Pagination from './Pagination.jsx';
 import OfferProposalWindow from './OfferProposalWindow';
+import { backend } from './../config';
 
 class TradeRequests extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class TradeRequests extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/api/offer/requests_received', {
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/offer/requests_received`, {
             credentials: 'include'
         })
         .then((res) => res.json())
@@ -32,7 +33,7 @@ class TradeRequests extends React.Component {
             tradeConfirmerBookId: offer.requested_book_id,
             tradeProposerBookId: offer.offered_book_id,
         }
-        fetch('http://localhost:8080/api/book/trade', {
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/book/trade`, {
             method: "POST",
             body: JSON.stringify(tradeData),
             credentials: 'include'
@@ -66,7 +67,7 @@ class TradeRequests extends React.Component {
                         })}
                     </table>
                 </div>
-                {/* <Pagination page={2} maxPages={3} url={'http://localhost:8080'}/> */}
+                {/* <Pagination page={2} maxPages={3} url={`${backend.protocol}://${backend.domain}:${backend.port}`}/> */}
             </div>
         );
     }

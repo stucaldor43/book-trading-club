@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header.jsx";
-import { domain, port, protocol } from "./../config";
+import { backend } from "./../config";
 
 class App extends React.Component {
     constructor(props) {
@@ -29,7 +29,7 @@ class App extends React.Component {
               }
               localStorage.setItem("verifier", query["oauth_verifier"]);
         }
-        const response = await fetch(`${protocol}://${domain}:${port}/api/get_access_token?token=${localStorage.token}&secret=${localStorage.secret}&verifier=${localStorage.verifier}`, {credentials: "include"});
+        const response = await fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/get_access_token?token=${localStorage.token}&secret=${localStorage.secret}&verifier=${localStorage.verifier}`, {credentials: "include"});
         const data = await response.json();
         if (data.status = 'success') {
             this.signIn();

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
-import { domain, port, protocol } from "./../config";
+import { backend } from "./../config";
 
 class Header extends React.Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class Header extends React.Component {
     }
 
     async redirectToTwitter() {
-        const response = await fetch(`${protocol}://${domain}:${port}/api/get_request_token`, {credentials: "include"});
+        const response = await fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/get_request_token`, {credentials: "include"});
         const json = await response.json();
         localStorage.setItem("token", json.data.token);
         localStorage.setItem("secret", json.data.secret);

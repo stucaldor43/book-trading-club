@@ -1,5 +1,6 @@
 import React from "react";
 import OfferProposalWindow from "./OfferProposalWindow";
+import { backend } from './../config';
 
 class BookInformationDialog extends React.Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class BookInformationDialog extends React.Component {
     }
 
     deleteBook() {
-        fetch(`http://localhost:8080/api/book/${this.props.book.id}`, {
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/book/${this.props.book.id}`, {
             method: 'DELETE',
             credentials: 'include'
         })
