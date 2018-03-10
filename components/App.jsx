@@ -33,6 +33,7 @@ class App extends React.Component {
         const data = await response.json();
         if (data.status = 'success') {
             this.signIn();
+            await fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/client`, {method: "POST", credentials: "include"});
         }
     }
 
