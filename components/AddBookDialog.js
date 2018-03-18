@@ -28,7 +28,8 @@ class AddBookDialog extends React.Component {
                 },
                 credentials: 'include'
             })
-            .then(() => this.props.refreshPage());
+            .then(() => this.props.refreshPage())
+            .then(() => this.props.closeDialog());
         });
         // don't commit with api key
     } 

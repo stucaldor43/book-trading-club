@@ -13,7 +13,8 @@ class BookInformationDialog extends React.Component {
             method: 'DELETE',
             credentials: 'include'
         })
-        .then(() => this.props.refreshPage());
+        .then(() => this.props.refreshPage())
+        .then(() => this.props.closeDialog());
     }
 
     render() {
