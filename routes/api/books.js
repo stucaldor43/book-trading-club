@@ -215,6 +215,14 @@ router.post("/", jsonparser, async (req, res) => {
                         .where("display_name", req.session.username || req.ip)
                         .first();
     if (!user) { res.sendStatus(403) };
+    const bookIsAlreadyOwnedByuser = ((await Book
+            .query()
+            .select('*')
+            .join('book_details', 'book.id', 'book_details.fk_book_id')
+            .where('book.fk_client_id', user.id)
+            .andWhere('title', req.body.title)
+            .andWhere('author', req.body.author)).length > 0) ? true : false
+    if (bookIsAlreadyOwnedByuser) { res.sendStatus(403) };
     const ownedBooks = await user
                                 .$relatedQuery("books_owned")
                                 .insert({fk_client_id: user.id});
