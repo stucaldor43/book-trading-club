@@ -98,6 +98,10 @@ router.get("/mybooks/search", async(req, res) => {
 });
 
 router.get("/search", async(req, res) => {
+    const user = await Client
+                        .query()
+                        .where("display_name", req.session.username || req.ip)
+                        .first();
     const bookTotal = (await Book
         .query()
         .distinct('title', 'author')
@@ -105,7 +109,8 @@ router.get("/search", async(req, res) => {
         'book_details.title', 'book_details.cover_image_url',
         'book_details.description')
         .join('book_details', 'book.id', 'book_details.fk_book_id')
-        .where("title", "ilike", (req.query.term.trim().length < 1) ? '' : `%${ req.query.term }%`)).length;
+        .where("title", "ilike", (req.query.term.trim().length < 1) ? '' : `%${ req.query.term }%`)
+        .whereNot('book.fk_client_id', req.query.exclude_owner ? user.id : null )).length;
     const maxRecordsPerPage = 20;
     const totalPages = Math.max((bookTotal % maxRecordsPerPage === 0) ? bookTotal / maxRecordsPerPage: Math.floor(bookTotal / maxRecordsPerPage) + 1 , 1);                    
     const page = req.query.page || 1;
@@ -117,6 +122,7 @@ router.get("/search", async(req, res) => {
             'book_details.description')
             .join('book_details', 'book.id', 'book_details.fk_book_id')
             .where("title", "ilike", (req.query.term.trim().length < 1) ? '' : `%${ req.query.term }%`)
+            .whereNot('book.fk_client_id', req.query.exclude_owner ? user.id : null )
             .offset((page - 1) * maxRecordsPerPage)
             .limit(maxRecordsPerPage)
     if (!items) {
@@ -184,7 +190,8 @@ router.get("/:id/owners", async (req, res) => {
                             .join('client', 'book.fk_client_id', 'client.id')
                             .join('book_details', 'book.id', 'book_details.fk_book_id')
                             .where('author', details.author)
-                            .andWhere('title', details.title)).length
+                            .andWhere('title', details.title)
+                            .whereNot('client.id', user.id)).length
     const maxRecordsPerPage = 20;
     const totalPages = Math.max((bookTotal % maxRecordsPerPage === 0) ? bookTotal / maxRecordsPerPage: Math.floor(bookTotal / maxRecordsPerPage) + 1 , 1);                    
     const page = req.query.page || 1;
@@ -195,6 +202,7 @@ router.get("/:id/owners", async (req, res) => {
                             .join('book_details', 'book.id', 'book_details.fk_book_id')
                             .where('author', details.author)
                             .andWhere('title', details.title)
+                            .whereNot('client.id', user.id)
                             .offset((page - 1) * maxRecordsPerPage)
                             .limit(maxRecordsPerPage)
                             // .whereNot("display_name", req.session.username);

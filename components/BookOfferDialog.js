@@ -21,7 +21,7 @@ class BookOfferDialog extends React.Component {
     }
 
     search() {
-        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/book/search/?term=${ this.state.bookTitleInput }`, {credentials: "include"})
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/book/search/?exclude_owner=true&term=${ this.state.bookTitleInput }`, {credentials: "include"})
             .then((response) => response.json())
             .then(data => {
                 return this.setState({ autoCompleteSuggestions: data.items.slice(0, 5).map((item) => item.title) });
