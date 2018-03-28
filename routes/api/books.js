@@ -231,7 +231,7 @@ router.post("/", jsonparser, async (req, res) => {
                         .insert({
                             author: req.body.author,
                             title: req.body.title,
-                            cover_image_url: req.body.book_thumbnail_url,
+                            cover_image_url: req.body.book_thumbnail_url || 'http://via.placeholder.com/128x212',
                             description: req.body.description || ""
                         });
     res.json({ data });
