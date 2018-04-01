@@ -54,7 +54,7 @@ class Header extends React.Component {
                 </nav>
               </div>
               <div className="header-logo">
-                <span className="header-logoText">Book Trading Club</span>
+                <span className="header-logoText"><span className="header-primaryColorText">Book Trading</span> <span className="header-secondaryColorText">Club</span></span>
               </div>
             </header>
         );

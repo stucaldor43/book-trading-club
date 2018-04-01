@@ -57,7 +57,7 @@ input:focus {
 
 .header-navWrapper {
     padding: 0 16px;
-    background-color: #81b2ff;
+    background-color: #13183e;
 }
 
 .header-navWrapper:after {
@@ -87,7 +87,7 @@ input:focus {
     .header-navigation {
         padding-top: 32px;
         position: relative;
-        background-color: #81b2ff;
+        background-color: #13183e;
         text-align: center;
     }
 }
@@ -127,7 +127,6 @@ input:focus {
     color: #FFF;
     display: inline-block;
     padding: 23px 16px 23px 0;
-    text-transform: uppercase;
 }
 
 @media (max-width: 573px) {
@@ -167,11 +166,18 @@ input:focus {
 
 .header-logo {
     padding: 58px 32px 58px 32px;
-    background-color: #f6f6f6;
     text-align: center;
     font-size: 40px;
     font-weight: 800;
     color: #81b2ff;
+}
+
+.header-primaryColorText {
+    color: #13183e;
+}
+
+.header-secondaryColorText {
+    color: #00acee;
 }
 
 /* @supports (display: flex) {
@@ -194,13 +200,13 @@ input:focus {
 }
 
 .addBookButton {
-    background-color: #81b2ff;
+    background-color: #00acee;
     color: #ffffff;
     border: thin solid;
     padding: 16px 16px;
     font-size: 14px;
     font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
+    text-transform: capitalize;
     border-radius: 3px;
     display: block;
     width: 100%;
@@ -218,6 +224,7 @@ input:focus {
 .book {
     display: block;
     margin: 0 auto 24px auto;
+    cursor: pointer;
 }
 
 @media (min-width: 573px) {
@@ -263,11 +270,12 @@ input:focus {
 
 .book-title {
     margin: 4px 0;
+    color: #13183e;
 }
 
 .book-author {
     margin: 4px 0;
-    color: grey;
+    color: #000;
 }
 
 .dialog {
@@ -307,11 +315,11 @@ input:focus {
 .bookDialog-descriptionContainer {
     max-height: 200px;
     overflow: auto;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
 .bookDialog-deleteBookButton {
-    background-color: #663399;
+    background-color: #00acee;
     color: #ffffff;
     border: thin solid;
     padding: 16px 16px;
@@ -319,8 +327,6 @@ input:focus {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     border-radius: 3px;
-    display: block;
-    width: 100%;
 }
 
 .closeButton {
@@ -363,25 +369,19 @@ input:focus {
 }
 
 .userSettings ul {
-    padding: 0
+    padding: 0;
 }
 
 @media (min-width: 573px) {
     .userSettings ul {
         margin: 0 auto;
-        max-width: 570px;
+        max-width: 61%;
+        max-width: 544px;
     }
 }
 
 .userSettings li {
     list-style: none;
-}
-
-@media (min-width: 573px) {
-    .userSettings li {
-        display: inline-block;
-        width: 50%;
-    }
 }
 
 .userSettings-firstNameInput, .userSettings-lastNameInput, .userSettings-cityInput {
@@ -392,13 +392,8 @@ input:focus {
     border-radius: 3px;
     margin: 0 16px 32px 0;
     width: 100%;
-}
-
-@media (min-width: 573px) {
-    .userSettings-firstNameInput, .userSettings-lastNameInput, .userSettings-cityInput {
-        width: auto;
-        max-width: 250px;
-    }
+    max-width: 530px;
+    color: #13183e;
 }
 
 .userSettings-stateDropDown {
@@ -409,6 +404,7 @@ input:focus {
     border-radius: 3px;
     margin: 0 16px 32px 0;
     display: block;
+    color: #13183e;
 }
 
 .userSettings li:nth-child(0n + 5) {
@@ -416,23 +412,21 @@ input:focus {
     max-width: 535px;
 }
 
+@media (min-width: 573px) {
+    .userSettings li:nth-child(0n + 5) {
+        text-align: center;
+    }
+}
+
 .userSettings-saveChangesButton {
-    background-color: #663399;
+    background-color: #00acee;;
     color: #ffffff;
     border: thin solid;
     padding: 16px 16px;
     font-size: 14px;
     font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
     border-radius: 3px;
     min-width: 150px;
-}
-
-@media (min-width: 573px) {
-    .userSettings-saveChangesButton {
-        width: 100%;
-        max-width: 478px;
-    }
 }
 
 .userSettings input:focus, .userSettings select:focus {
