@@ -110,7 +110,7 @@ router.get("/search", async(req, res) => {
         'book_details.description')
         .join('book_details', 'book.id', 'book_details.fk_book_id')
         .where("title", "ilike", (req.query.term.trim().length < 1) ? '' : `%${ req.query.term }%`)
-        .whereNot('book.fk_client_id', req.query.exclude_owner ? user.id : null )).length;
+        .andWhere('book.fk_client_id', req.query.owned_books_only ? '=' : '>=', req.query.owned_books_only ? user.id : 0)).length;
     const maxRecordsPerPage = 20;
     const totalPages = Math.max((bookTotal % maxRecordsPerPage === 0) ? bookTotal / maxRecordsPerPage: Math.floor(bookTotal / maxRecordsPerPage) + 1 , 1);                    
     const page = req.query.page || 1;
@@ -122,7 +122,7 @@ router.get("/search", async(req, res) => {
             'book_details.description')
             .join('book_details', 'book.id', 'book_details.fk_book_id')
             .where("title", "ilike", (req.query.term.trim().length < 1) ? '' : `%${ req.query.term }%`)
-            .whereNot('book.fk_client_id', req.query.exclude_owner ? user.id : null )
+            .andWhere('book.fk_client_id', req.query.owned_books_only ? '=' : '>=', req.query.owned_books_only ? user.id : 0)
             .offset((page - 1) * maxRecordsPerPage)
             .limit(maxRecordsPerPage)
     if (!items) {
