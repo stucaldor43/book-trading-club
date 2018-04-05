@@ -10,6 +10,22 @@ router.get("/requests_received", async (req, res) => {
                         .query()
                         .where("display_name", req.session.username || req.ip)
                         .first();
+    const offerCount = (await Book
+        .query()
+        .select('book.id as requested_book_id', 'bk.author as requested_book_author',
+        'bk.title as requested_book_title', 'bk.cover_image_url as requested_book_cover_image_url',
+        'bk.description as requested_book_description' , 'book2.id as offered_book_id', 'bk2.author as offered_book_author',
+        'bk2.title as offered_book_title', 'bk2.cover_image_url as offered_book_cover_image_url',
+        'bk2.description as offered_book_description', 'client.display_name as offered_book_owner')
+        .join("offer", "book.id", "requested_book")
+        .join('book_details as bk', 'requested_book', 'bk.fk_book_id')
+        .join('book_details as bk2', 'offered_book', 'bk2.fk_book_id')
+        .join('book as book2', 'offered_book', 'book2.id')
+        .join('client', 'book2.fk_client_id', 'client.id')
+        .where("book.fk_client_id", user.id)).length;
+    const maxRecordsPerPage = 10;
+    const totalPages = Math.max((offerCount % maxRecordsPerPage === 0) ? offerCount / maxRecordsPerPage: Math.floor(offerCount / maxRecordsPerPage) + 1 , 1);                    
+    const page = req.query.page || 1;
     const offers = await Book
                         .query()
                         .select('book.id as requested_book_id', 'bk.author as requested_book_author',
@@ -23,7 +39,9 @@ router.get("/requests_received", async (req, res) => {
                         .join('book as book2', 'offered_book', 'book2.id')
                         .join('client', 'book2.fk_client_id', 'client.id')
                         .where("book.fk_client_id", user.id)
-    res.json({ offers });
+                        .offset((page - 1) * maxRecordsPerPage)
+                        .limit(maxRecordsPerPage)
+    res.json({ offers, totalPages });
 });
 
 router.get("/proposals", async (req, res) => {

@@ -444,8 +444,8 @@ table {
     min-width: 80%;
 }
 
-tr:nth-child(odd) {
-    background-color: #e5e5e5;
+tr:nth-child(even) {
+    background-color: rgba(0,0,0,.05);
 }
 
 td {
@@ -466,6 +466,15 @@ table button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     border-radius: 3px;
+}
+
+.heading {
+    color: #81b2ff;
+    text-align: center;
+}
+
+.pagination-cell {
+    padding: 30px 8px;
 }
 
 .bookOfferDialog-inputContainer {
