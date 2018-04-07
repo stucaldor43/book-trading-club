@@ -8,6 +8,14 @@ class BookInformationDialog extends React.Component {
         this.deleteBook = this.deleteBook.bind(this);
     }
 
+    componentDidMount() {
+        document.querySelector("body").style.overflow = "hidden";
+    }
+
+    componentWillUnmount() {
+        document.querySelector("body").style.overflow = "auto";
+    }
+
     deleteBook() {
         fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/book/${this.props.book.id}`, {
             method: 'DELETE',
