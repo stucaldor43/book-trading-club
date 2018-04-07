@@ -313,8 +313,6 @@ input:focus {
 }
 
 .bookDialog-descriptionContainer {
-    max-height: 200px;
-    overflow: auto;
     margin-bottom: 16px;
 }
 
@@ -539,17 +537,6 @@ table button {
     top: 0;
     left: 0;
     right: 0;
-    min-height: 450px;
-}
-
-.offerProposalWindow:before {
-    display: table;
-    content: "";
-    background-color: #e5e5e5;
-    height: 1px;
-    width: 100%;
-    margin-top: 16px;
-    margin-bottom: 16px;
 }
 
 [name=searchInput] {

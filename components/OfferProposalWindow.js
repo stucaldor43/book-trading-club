@@ -68,27 +68,36 @@ class OfferProposalWindow extends React.Component {
         return (
             <div className="offerProposalWindow">
                 <div className="tableContainer">
-                    <table>
-                        <caption>Users Possessing This Book</caption>
-                        <tr>
-                            <th>Username</th>
-                            <th>Make offer</th>
-                        </tr>
-                        { this.state.info.map((data) => {
-                            return (
+                    {
+                        this.state.info.length ?
+                            (<table>
                                 <tr>
-                                    <td>{data.display_name}</td>
-                                    <td><button onClick={this.clickHandler.bind(this, data.book_id)}>Make Offer</button></td>
+                                    <th>Username</th>
+                                    <th>Make offer</th>
                                 </tr>
-                            );
-                        })}
-                    </table>
+                                { this.state.info.map((data) => {
+                                    return (
+                                        <tr>
+                                            <td>{data.display_name}</td>
+                                            <td><button onClick={this.clickHandler.bind(this, data.book_id)}>Make Offer</button></td>
+                                        </tr>
+                                    );
+                                })}
+                                { 
+                                    maxPages > 1 ?
+                                    (<tr>
+                                        <td colSpan="2">
+                                            <Pagination page={page} 
+                                                        maxPages={maxPages} 
+                                                        url={''}
+                                                        previousLinkClickHandler={this.previousPage}
+                                                        nextLinkClickHandler={this.nextPage}/>
+                                        </td>
+                                    </tr>) : null
+                                }
+                            </table>) : null
+                    }
                 </div>
-                <Pagination page={page} 
-                            maxPages={maxPages} 
-                            url={''}
-                            previousLinkClickHandler={this.previousPage}
-                            nextLinkClickHandler={this.nextPage}/>
                 {(this.state.isDialogOpen) ? <BookOfferDialog requestedBookId={this.state.bookId} close={this.state.closeDialog}/> : null}
             </div>
         );
