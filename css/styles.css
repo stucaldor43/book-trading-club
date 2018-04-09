@@ -189,27 +189,16 @@ input:focus {
     }
 } */
 
-.myBooks-buttonContainer {
-    margin-bottom: 32px;
-}
-
-@media (max-width: 573px) {
-    .myBooks-buttonContainer {
-        margin-bottom: 32px;
-    }
-}
-
 .addBookButton {
     background-color: #00acee;
     color: #ffffff;
     border: thin solid;
-    padding: 16px 16px;
+    padding: 8px 16px;
     font-size: 14px;
     font-family: "Roboto", sans-serif;
     text-transform: capitalize;
     border-radius: 3px;
-    display: block;
-    width: 100%;
+    margin-bottom: 32px;
 }
 
 @media (min-width: 573px) {
@@ -227,7 +216,7 @@ input:focus {
     cursor: pointer;
 }
 
-@media (min-width: 573px) {
+@media (min-width: 460px) {
     .book {
         display: inline-block;
         width: 45%;
@@ -546,4 +535,5 @@ table button {
     border: thin solid #c4c4c4;
     border-radius: 3px;
     margin-right: 16px;
+    margin-bottom: 32px;
 }
