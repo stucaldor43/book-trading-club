@@ -32,9 +32,9 @@ class Header extends React.Component {
         const hamburgerClasses = "hamburger " + (this.state.isNavOpen ? "hamburger-isNotPresent" : "");
         const navigationClasses = "header-navigation " + (this.state.isNavOpen ? "header-navigation-isPresent" : "header-navigation-isNotPresent");
         const userActionButton = (this.props.isSignedIn) ? <button className="header-logoutButton" onClick={ this.props.logOutHandler }>Sign Out</button> : <button className="header-loginButton" onClick={ this.redirectToTwitter }>Sign In</button>;
-        const signedInUserLinks = (this.props.isSignedIn) ? <span><Link to="/mybooks/1" className="header-navLink">My Library</Link>
-        <Link to="/settings" className="header-navLink">Profile</Link>
-        <Link to="/traderequests" className="header-navLink">Requests</Link></span> : null;
+        const signedInUserLinks = (this.props.isSignedIn) ? <span><Link onClick={ this.toggleMenuVisibility } to="/mybooks/1" className="header-navLink">My Library</Link>
+        <Link onClick={ this.toggleMenuVisibility } to="/settings" className="header-navLink">Profile</Link>
+        <Link onClick={ this.toggleMenuVisibility } to="/traderequests" className="header-navLink">Requests</Link></span> : null;
 
         return (
             <header className="header">
@@ -49,7 +49,7 @@ class Header extends React.Component {
                 </div>
                 <nav className={ navigationClasses }>
                     <span onClick={ this.toggleMenuVisibility } className="header-navigation-closeButton">x</span>
-                    <Link to="/allbooks/1" className="header-navLink">Books</Link>
+                    <Link onClick={ this.toggleMenuVisibility } to="/allbooks/1" className="header-navLink">Books</Link>
                     { signedInUserLinks }
                 </nav>
               </div>
