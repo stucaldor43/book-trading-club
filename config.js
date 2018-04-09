@@ -1,7 +1,7 @@
 const backend = {
-  protocol: "https",
-  domain: "stormy-stream-23772.herokuapp.com",
-  port: 443
+  protocol: "http",
+  domain: "localhost",
+  port: 8080
 }
 
 module.exports = {
