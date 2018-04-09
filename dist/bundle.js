@@ -1331,9 +1331,9 @@ module.exports = emptyFunction;
 /***/ (function(module, exports) {
 
 const backend = {
-  protocol: "https",
-  domain: "stormy-stream-23772.herokuapp.com",
-  port: 443
+  protocol: "http",
+  domain: "localhost",
+  port: 8080
 };
 
 module.exports = {
@@ -14145,17 +14145,17 @@ class Header extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             null,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
-                { to: "/mybooks/1", className: "header-navLink" },
+                { onClick: this.toggleMenuVisibility, to: "/mybooks/1", className: "header-navLink" },
                 "My Library"
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
-                { to: "/settings", className: "header-navLink" },
+                { onClick: this.toggleMenuVisibility, to: "/settings", className: "header-navLink" },
                 "Profile"
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
-                { to: "/traderequests", className: "header-navLink" },
+                { onClick: this.toggleMenuVisibility, to: "/traderequests", className: "header-navLink" },
                 "Requests"
             )
         ) : null;
@@ -14188,7 +14188,7 @@ class Header extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
-                        { to: "/allbooks/1", className: "header-navLink" },
+                        { onClick: this.toggleMenuVisibility, to: "/allbooks/1", className: "header-navLink" },
                         "Books"
                     ),
                     signedInUserLinks
