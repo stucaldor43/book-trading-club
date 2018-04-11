@@ -2,17 +2,26 @@ import React from "react";
 import jsonp from "jsonp";
 import { debounce } from './../helpers/utils';
 import { backend } from './../config';
+import Message from './Message.jsx';
 
 class AddBookDialog extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showingMessage: false,
+            messageType: 'success',
+            message: '',
+        };
         this.keyUpHandler = this.keyUpHandler.bind(this);
         this.fetchBookData = debounce(this.fetchBookData.bind(this), 800);
     }
 
     fetchBookData(isbn) {
         jsonp(`https://www.googleapis.com/books/v1/volumes?q=+isbn:${isbn}&key=AIzaSyDYdUSvMksIolQN4oFMsVRgrI_6m66heWo`, (err, data) => {
-            if (data.error || data.totalItems === 0) { return; }
+            if (data.error || data.totalItems === 0) { 
+                this.showMessage('fail', 'Sorry, we were unable to add the requested book to your library');
+                return; 
+            }
             const item = data.items[0];
             const bookInfo = {
                 author: item.volumeInfo.authors[0],
@@ -28,8 +37,10 @@ class AddBookDialog extends React.Component {
                 },
                 credentials: 'include'
             })
+            .then(() => {
+                this.showMessage('success', 'The book was added to your library');
+            })
             .then(() => this.props.refreshPage())
-            .then(() => this.props.closeDialog());
         });
         // don't commit with api key
     } 
@@ -43,6 +54,14 @@ class AddBookDialog extends React.Component {
         }
     }
 
+    showMessage(messageType, message) {
+        this.setState({
+            showingMessage: true,
+            messageType,
+            message
+        })
+    }
+
     render() {
         return (
             <div className="dialog">
@@ -52,6 +71,10 @@ class AddBookDialog extends React.Component {
                         <input type="text" placeholder="ISBN number" onKeyUp={ this.keyUpHandler }/>
                     </div>
                 </div>
+                { this.state.showingMessage && <Message onTimeout={() => this.setState({showingMessage: false})} 
+                                                        seconds={3} 
+                                                        type={this.state.messageType} 
+                                                        message={this.state.message}/> }
             </div>
         );
     }
