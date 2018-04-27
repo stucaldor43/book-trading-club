@@ -145,7 +145,7 @@ router.get("/:id", async (req, res) => {
     res.json({ book });
 });
 
-router.patch("/trade", jsonparser, async (req, res) => {
+router.post("/trade", jsonparser, async (req, res) => {
     const tradeProposer = await Client
                                     .query()
                                     .where("display_name", req.body.tradeProposerName)

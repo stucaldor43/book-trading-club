@@ -23,7 +23,7 @@ class TradeRequests extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.page !== this.state.page) {
+        if (prevState.page !== this.state.page || prevState.offers !== this.state.offers ) {
             this.goToPage();
         }
     }
@@ -71,7 +71,7 @@ class TradeRequests extends React.Component {
                                 <td>{offer.offered_book_title}</td>
                                 <td>{offer.requested_book_title}</td>
                                 <td>{offer.offered_book_owner}</td>
-                                <td><button onClick={this.tradeBooks.bind(offer)}>Confirm</button></td>
+                                <td><button onClick={this.tradeBooks.bind(this, offer)}>Confirm</button></td>
                             </tr>
                         )
                     })}
@@ -99,10 +99,13 @@ class TradeRequests extends React.Component {
         fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/book/trade`, {
             method: "POST",
             body: JSON.stringify(tradeData),
+            headers: {
+                'Content-Type': 'application/json'
+            },
             credentials: 'include'
         })
         .then((data) => {
-            alert("trade completed!");
+            this.goToPage();
         });
     }
 
