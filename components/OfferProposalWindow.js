@@ -98,7 +98,7 @@ class OfferProposalWindow extends React.Component {
                             </table>) : null
                     }
                 </div>
-                {(this.state.isDialogOpen) ? <BookOfferDialog requestedBookId={this.state.bookId} close={this.state.closeDialog}/> : null}
+                {(this.state.isDialogOpen) ? <BookOfferDialog requestedBookId={this.state.bookId} close={this.closeDialog}/> : null}
             </div>
         );
     }

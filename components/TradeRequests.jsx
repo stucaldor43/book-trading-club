@@ -23,7 +23,7 @@ class TradeRequests extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.page !== this.state.page || prevState.offers !== this.state.offers ) {
+        if (prevState.page !== this.state.page) {
             this.goToPage();
         }
     }
@@ -120,7 +120,13 @@ class TradeRequests extends React.Component {
         }
         return (
             <div className="page">
-                { pageContent }
+                <div>
+                    <div>
+                        <span>Incoming Requests</span>
+                        <span>Active Offers</span>
+                    </div>
+                    { pageContent }
+                </div>
             </div>
         );
     }
