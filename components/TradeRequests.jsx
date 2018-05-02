@@ -11,11 +11,13 @@ class TradeRequests extends React.Component {
             offers: [],
             hasAttemptedToLoadData: false,
             page: 1,
-            maxPages: 1
+            maxPages: 1,
+            activeTabIndex: 0
         };
         this.tradeBooks = this.tradeBooks.bind(this);
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
+        this.makeActiveTab = this.makeActiveTab.bind(this);
     }
 
     componentDidMount() {
@@ -23,13 +25,17 @@ class TradeRequests extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.page !== this.state.page) {
+        if (prevState.page !== this.state.page || prevState.activeTabIndex !== this.state.activeTabIndex) {
             this.goToPage();
         }
     }
 
     goToPage() {
-        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/offer/requests_received/?page=${this.state.page}`, {
+        const urls = {
+            0: '/api/offer/requests_received',
+            1: '/api/offer/proposals'
+        }
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}${urls[this.state.activeTabIndex]}/?page=${this.state.page}`, {
             credentials: 'include'
         })
         .then((res) => res.json())
@@ -56,7 +62,9 @@ class TradeRequests extends React.Component {
 
     renderTable() {
         const { page, maxPages } = this.state;
-        return (
+        const userHasNoOffers = this.state.hasAttemptedToLoadData && !this.state.offers.length;
+
+        return (userHasNoOffers) ? <h2 className="heading">You do not currently have any book offers</h2> :
             <div className="tableContainer">
                 <table>
                     <tr>
@@ -87,7 +95,45 @@ class TradeRequests extends React.Component {
                 </table>
             </div>
                 
-        );
+        
+    }
+
+    renderProposalTable() {
+        const { page, maxPages } = this.state;
+        const userHasNoOffers = this.state.hasAttemptedToLoadData && !this.state.offers.length;
+
+        return (userHasNoOffers) ? <h2 className="heading">You have no pending offers</h2> :
+            <div className="tableContainer">
+                <table>
+                    <tr>
+                        <th>Your Book</th>
+                        <th>Requested Book</th>
+                        <th>Username</th>
+                        <th>Current Status</th>
+                    </tr>
+                    { this.state.offers.map((offer) => {
+                        return (
+                            <tr>
+                                <td>{offer.offered_book_title}</td>
+                                <td>{offer.requested_book_title}</td>
+                                <td>{offer.requested_book_owner}</td>
+                                <td>Pending</td>
+                            </tr>
+                        )
+                    })}
+                    <tr>
+                        <td className="pagination-cell" colSpan="4">
+                            <Pagination page={page} 
+                                        maxPages={maxPages} 
+                                        url={`${backend.protocol}://${backend.domain}:${backend.port}`}
+                                        previousLinkClickHandler={this.previousPage}
+                                        nextLinkClickHandler={this.nextPage}/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+                
+        
     }
 
     tradeBooks(offer) {
@@ -109,21 +155,32 @@ class TradeRequests extends React.Component {
         });
     }
 
+    makeActiveTab(index, evt) {
+        this.setState({activeTabIndex: index, page: 1});
+    }
+
     render() {
         let pageContent;
-        if (this.state.hasAttemptedToLoadData && !this.state.offers) {
-            pageContent = <h2 className="heading">You do not currently have any book offers</h2>;
-            
+        let userHasNoOffers = this.state.hasAttemptedToLoadData && !this.state.offers.length;
+        if (!this.state.hasAttemptedToLoadData) {
+            pageContent = null;
         }
         else {
-            pageContent = this.renderTable();
+            pageContent = (this.state.activeTabIndex === 0) ? this.renderTable() : this.renderProposalTable();
         }
+        
         return (
             <div className="page">
-                <div>
-                    <div>
-                        <span>Incoming Requests</span>
-                        <span>Active Offers</span>
+                <div className="tradeRequests">
+                    <div className="tradeRequests-tabContainer">
+                        {['Incoming Requests', 'Active Offers'].map((text, index) => {
+                            return (
+                                <span key={text} 
+                                    className={`tradeRequests-tab ${(this.state.activeTabIndex === index) ? "tradeRequests-tab-isActive" : ""}`} 
+                                    onClick={this.makeActiveTab.bind(this, index)}>{text}
+                                </span>
+                            );
+                        })}
                     </div>
                     { pageContent }
                 </div>

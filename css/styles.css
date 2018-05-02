@@ -568,3 +568,29 @@ table button {
 .message-text {
     color: #000;
 }
+
+.tradeRequests {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.tradeRequests-tabContainer {
+    margin-bottom: 24px;
+}
+
+.tradeRequests-tab {
+    border: thin solid #e5e5e5;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.tradeRequests-tab-isActive {
+    background-color: #00acee;
+    color: #fff;
+}
+
+.tradeRequests table {
+    margin: 0 0;
+}
