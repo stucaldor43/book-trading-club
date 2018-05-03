@@ -99,9 +99,14 @@ router.post("/", jsonparser, async (req, res) => {
     if (booksInOffer.length !== 2) {
         res.sendStatus(400);
     }
-    const offer = await Offer
-                        .query()
-                        .insert({offered_book: offered_book_id || book.id, requested_book: requested_book_id})
+    const identicalOffer = await Offer
+                                    .query()
+                                    .where("requested_book", requested_book_id)
+                                    .andWhere("offered_book", offered_book_id || book.id)
+                                    .first();
+    let offer = identicalOffer || await Offer
+                                            .query()
+                                            .insert({offered_book: offered_book_id || book.id, requested_book: requested_book_id})
     res.json({ offer });
 });
 
