@@ -172,7 +172,9 @@ router.post("/trade", jsonparser, async (req, res) => {
             .query()
             .delete()
             .where("requested_book", req.body.tradeConfirmerBookId)
-            .andWhere("offered_book", req.body.tradeProposerBookId);
+            .orWhere("requested_book", req.body.tradeProposerBookId)
+            .orWhere("offered_book", req.body.tradeConfirmerBookId)
+            .orWhere("offered_book", req.body.tradeProposerBookId)
 });
 
 router.get("/:id/owners", async (req, res) => {
