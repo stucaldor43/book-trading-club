@@ -50,7 +50,9 @@ class App extends React.Component {
             <div>
               <Header isSignedIn={this.state.signedIn} logOutHandler={this.signOut}>Header</Header>
                 { this.props.children }
-              <footer></footer>
+              <footer className="footer">
+                <p className="footer-copyright">Anthony Cook &copy; 2018</p>
+              </footer>
             </div>
         );
     }

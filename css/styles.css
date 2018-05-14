@@ -22,6 +22,7 @@ input:focus {
 
 .page {
     padding: 64px 16px;
+    min-height: 500px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -303,6 +304,10 @@ input:focus {
 
 .bookDialog-descriptionContainer {
     margin-bottom: 16px;
+}
+
+.bookDialog-description {
+    text-indent: 1.6em;
 }
 
 .bookDialog-deleteBookButton {
@@ -593,4 +598,72 @@ table button {
 
 .tradeRequests table {
     margin: 0 0;
+}
+
+.tradeRequests button {
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.tradeRequests button:hover {
+    transform: scale(1.05);
+}
+
+.footer {
+    padding: 32px 16px;
+    background-color:#13183e;
+    color: #fff;
+}
+
+.footer-copyright {
+    text-align: center;
+}
+
+.icon-laptop {
+    margin-left: -25px;
+}
+
+.productInformation {
+    padding-bottom: 32px;
+    text-align: center;
+}
+
+@media (min-width: 460px) {
+    .productInformation {
+        display: inline-block;
+        width: 50%;
+        padding-right: 8px;
+    }
+}
+
+@media (min-width: 700px) {
+    .productInformation {
+        width: 33.33%;
+    }
+}
+
+.productInformation-icon {
+    font-size: 9em;
+    color: #13183e;
+}
+
+.home .row {
+    text-align: center;
+}
+
+.home a {
+    background-color: #ffffff;
+    color: #81b2ff;
+    border: thin solid #e5e5e5;
+    padding: 8px 100px;
+    font-size: 1.1em;
+    font-family: "Roboto", sans-serif;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.home a:hover {
+    color: #ffffff;
+    background-color: #81b2ff;
 }

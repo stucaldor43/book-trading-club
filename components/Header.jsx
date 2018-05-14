@@ -17,7 +17,7 @@ class Header extends React.Component {
         const json = await response.json();
         localStorage.setItem("token", json.data.token);
         localStorage.setItem("secret", json.data.secret);
-        location.assign(`https://api.twitter.com/oauth/authorize?oauth_token=${localStorage.getItem("token")}`);
+        location.href = `https://api.twitter.com/oauth/authorize?oauth_token=${localStorage.getItem("token")}`;
     }
     
     toggleMenuVisibility() {

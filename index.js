@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDom from "react-dom";
-import { Router, Route, hashHistory } from "react-router";
+import { Router, Route, hashHistory, IndexRoute } from "react-router";
 import App from "./components/App.jsx";
+import Home from "./components/Home.jsx";
 import AllBooks from "./components/AllBooks.jsx";
 import MyBooks from "./components/MyBooks.jsx";
 import UserSettings from "./components/UserSettings.jsx";
@@ -13,6 +14,7 @@ ReactDom.render(
     <Route path="/" component={App} onEnter={async (nextState, replace, callback) => {
       callback();
     }}>
+      <IndexRoute component={Home}/>
       <Route path="/allbooks/:page" component={AllBooks}/>
       <Route path="/mybooks/:page" component={MyBooks}/>
       <Route path="/settings" component={UserSettings}/>
