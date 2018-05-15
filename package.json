@@ -4,7 +4,8 @@
     "prebuild": "del-cli dist -f",
     "build": "webpack --watch",
     "start": "yarn run build",
-    "server": "node app.js"
+    "server": "node app.js",
+    "assemble": "webpack -p"
   },
   "version": "1.0.0",
   "main": "index.js",
