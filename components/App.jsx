@@ -11,11 +11,10 @@ class App extends React.Component {
         this.verify = this.verify.bind(this);
     }
 
-    componentDidMount() {
-        if (location.href.indexOf('oauth_token') >= 0) {
+    componentDidUpdate() {
+        if (location.href.indexOf('oauth_token') >= 0 && !this.state.signedIn) {
             this.verify();
         }
-        
     }
 
     async verify() {
@@ -31,7 +30,7 @@ class App extends React.Component {
         }
         const response = await fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/get_access_token?token=${localStorage.token}&secret=${localStorage.secret}&verifier=${localStorage.verifier}`, {credentials: "include"});
         const data = await response.json();
-        if (data.status = 'success') {
+        if (data.status === 'success') {
             this.signIn();
             await fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/client`, {method: "POST", credentials: "include"});
         }
