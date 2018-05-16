@@ -13360,8 +13360,8 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         this.verify = this.verify.bind(this);
     }
 
-    componentDidMount() {
-        if (location.href.indexOf('oauth_token') >= 0) {
+    componentDidUpdate() {
+        if (location.href.indexOf('oauth_token') >= 0 && !this.state.signedIn) {
             this.verify();
         }
     }
@@ -13381,7 +13381,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             }
             const response = yield fetch(`${__WEBPACK_IMPORTED_MODULE_2__config__["backend"].protocol}://${__WEBPACK_IMPORTED_MODULE_2__config__["backend"].domain}:${__WEBPACK_IMPORTED_MODULE_2__config__["backend"].port}/api/get_access_token?token=${localStorage.token}&secret=${localStorage.secret}&verifier=${localStorage.verifier}`, { credentials: "include" });
             const data = yield response.json();
-            if (data.status = 'success') {
+            if (data.status === 'success') {
                 _this.signIn();
                 yield fetch(`${__WEBPACK_IMPORTED_MODULE_2__config__["backend"].protocol}://${__WEBPACK_IMPORTED_MODULE_2__config__["backend"].domain}:${__WEBPACK_IMPORTED_MODULE_2__config__["backend"].port}/api/client`, { method: "POST", credentials: "include" });
             }
@@ -17953,7 +17953,7 @@ exports.stringify = function (obj) {
 /* 157 */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n<html>\n  <head>\n    <meta charset=\"UTF-8\">\n    <title>Book Trading Club</title>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link href=\"https://fonts.googleapis.com/css?family=Open+Sans|Roboto\" rel=\"stylesheet\">\n    <link href=\"css/styles.css\" rel=\"stylesheet\">\n    <link href=\"css/fontello.css\" rel=\"stylesheet\"/>\n  </head>\n  <body>\n    <div class=\"pageContainer\"></div>\n    <script type=\"text/javascript\" src=\"dist/bundle.js\" defer></script>\n  </body>\n</html>"
+module.exports = "<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Book Trading Club</title>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <link href=\"https://fonts.googleapis.com/css?family=Open+Sans|Roboto\" rel=\"stylesheet\">\r\n    <link href=\"css/styles.css\" rel=\"stylesheet\">\r\n    <link href=\"css/fontello.css\" rel=\"stylesheet\"/>\r\n  </head>\r\n  <body>\r\n    <div class=\"pageContainer\"></div>\r\n    <script type=\"text/javascript\" src=\"dist/bundle.js\" defer></script>\r\n  </body>\r\n</html>"
 
 /***/ }),
 /* 158 */
