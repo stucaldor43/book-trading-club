@@ -7,6 +7,7 @@ import AllBooks from "./components/AllBooks.jsx";
 import MyBooks from "./components/MyBooks.jsx";
 import UserSettings from "./components/UserSettings.jsx";
 import TradeRequests from "./components/TradeRequests.jsx";
+import Login from "./components/Login.jsx";
 import "./index.html";
 
 ReactDom.render(
@@ -19,6 +20,7 @@ ReactDom.render(
       <Route path="/mybooks/:page" component={MyBooks}/>
       <Route path="/settings" component={UserSettings}/>
       <Route path="/traderequests" component={TradeRequests}/>
+      <Route path="/login" component={Login}/>
     </Route>
   </Router>, document.querySelector(".pageContainer")
 );
