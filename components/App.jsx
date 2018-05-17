@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header.jsx";
-import { backend } from "./../config";
+import Login from "./Login.jsx";
 
 class App extends React.Component {
     constructor(props) {
@@ -8,32 +8,6 @@ class App extends React.Component {
         this.state = { signedIn: false };
         this.signIn = this.signIn.bind(this);
         this.signOut = this.signOut.bind(this);
-        this.verify = this.verify.bind(this);
-    }
-
-    componentDidUpdate() {
-        if (location.href.indexOf('oauth_token') >= 0 && !this.state.signedIn) {
-            this.verify();
-        }
-    }
-
-    async verify() {
-        const queryString = location.search;
-        if (queryString.indexOf("oauth_token") >= 0 && 
-            queryString.indexOf("oauth_verifier") >= 0) {
-              const query = {};
-              const parameters = queryString.substring(1).split("&");
-              for (const parameter of parameters) {
-                query[parameter.split("=")[0]] = parameter.split("=")[1];
-              }
-              localStorage.setItem("verifier", query["oauth_verifier"]);
-        }
-        const response = await fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/get_access_token?token=${localStorage.token}&secret=${localStorage.secret}&verifier=${localStorage.verifier}`, {credentials: "include"});
-        const data = await response.json();
-        if (data.status === 'success') {
-            this.signIn();
-            await fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/client`, {method: "POST", credentials: "include"});
-        }
     }
 
     signIn() {
@@ -48,7 +22,7 @@ class App extends React.Component {
         return (
             <div>
               <Header isSignedIn={this.state.signedIn} logOutHandler={this.signOut}>Header</Header>
-                { this.props.children }
+                {(this.props.location.pathname.indexOf('/login') === 0) ? <Login signedIn={this.state.signedIn} signIn={this.signIn}/> : this.props.children }
               <footer className="footer">
                 <p className="footer-copyright">Anthony Cook &copy; 2018</p>
               </footer>
