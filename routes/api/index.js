@@ -50,6 +50,9 @@ router.get("/get_access_token", (req, res) => {
             return;
         }
         req.session.username = user.screen_name;
+        res.set({
+            "Access-Control-Allow-Origin": "https://stucaldor43.github.io"
+        });
         res.json(jsend.success({access_token, access_secret, user}));
     });
 });
