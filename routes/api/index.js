@@ -41,6 +41,7 @@ router.get("/get_access_token", (req, res) => {
     const {secret, token, verifier} = req.query;
     oauth.getOAuthAccessToken(token, secret, verifier, function(err, access_token, access_secret, user) {
         if (err) {
+            console.log(error);
             res.json({
                 status: "fail", 
                 data: {}
