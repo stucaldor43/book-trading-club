@@ -19,7 +19,7 @@ router.get("/get_request_token", (req, res) => {
               '3QAfolRentQ03UMUlA853CZK3',
               'DJXEcQcyhCvNKIH5aVRd1g2CBbkBNW6bPj1qKKB9uC1EELNKYp',
               '1.0A',
-              'http://localhost:8081/#/login',
+              'https://stucaldor43.github.io/book-trading-club/#/login',
               'HMAC-SHA1'
             );
             
@@ -34,7 +34,7 @@ router.get("/get_access_token", (req, res) => {
               '3QAfolRentQ03UMUlA853CZK3',
               'DJXEcQcyhCvNKIH5aVRd1g2CBbkBNW6bPj1qKKB9uC1EELNKYp',
               '1.0A',
-              'http://localhost:8081/#/login',
+              'https://stucaldor43.github.io/book-trading-club/#/login',
               'HMAC-SHA1'
             );
             
