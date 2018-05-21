@@ -16,8 +16,8 @@ router.get("/get_request_token", (req, res) => {
     const oauth = new OAuth.OAuth(
               'https://api.twitter.com/oauth/request_token',
               'https://api.twitter.com/oauth/access_token',
-              '3QAfolRentQ03UMUlA853CZK3',
-              'DJXEcQcyhCvNKIH5aVRd1g2CBbkBNW6bPj1qKKB9uC1EELNKYp',
+              'gW7NqZsRz8PWpLHp7xLc3s4MN',
+              '2Yi2ro0P1E8Qw4R5mWwdhAeIN1Ms74XZbRfUh3MHtaAawDritM',
               '1.0A',
               'https://stucaldor43.github.io/book-trading-club/#/login',
               'HMAC-SHA1'
@@ -31,8 +31,8 @@ router.get("/get_access_token", (req, res) => {
     const oauth = new OAuth.OAuth(
               'https://api.twitter.com/oauth/request_token',
               'https://api.twitter.com/oauth/access_token',
-              '3QAfolRentQ03UMUlA853CZK3',
-              'DJXEcQcyhCvNKIH5aVRd1g2CBbkBNW6bPj1qKKB9uC1EELNKYp',
+              'gW7NqZsRz8PWpLHp7xLc3s4MN',
+              '2Yi2ro0P1E8Qw4R5mWwdhAeIN1Ms74XZbRfUh3MHtaAawDritM',
               '1.0A',
               'https://stucaldor43.github.io/book-trading-club/#/login',
               'HMAC-SHA1'
