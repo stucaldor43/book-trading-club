@@ -1,4 +1,3 @@
-const OAuth = require("oauth");
 const router = require("express").Router();
 const { jsend } = require("./../../helpers/utils");
 const Client = require("./../../models/Client");
