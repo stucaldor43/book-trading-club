@@ -1,25 +1,56 @@
 import React from "react";
 import { Link } from "react-router";
 import { backend } from "./../config";
+import Message from './Message.jsx';
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isNavOpen: false
+            isNavOpen: false,
+            'username': '',
+            'password': '',
+            showingMessage: false,
+            messageType: 'fail',
+            message: 'Invalid username/password' 
         };
-        this.redirectToTwitter = this.redirectToTwitter.bind(this);
+        this.showMessage = this.showMessage.bind(this);
+        this.signIn = this.signIn.bind(this);
         this.toggleMenuVisibility = this.toggleMenuVisibility.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
     }
 
-    async redirectToTwitter() {
-        const response = await fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/get_request_token`, {credentials: "include"});
-        const json = await response.json();
-        localStorage.setItem("token", json.data.token);
-        localStorage.setItem("secret", json.data.secret);
-        location.href = `https://api.twitter.com/oauth/authorize?oauth_token=${localStorage.getItem("token")}`;
+    showMessage() {
+        this.setState({showingMessage: true});
     }
-    
+
+    signIn(username, password) {
+        fetch(`${backend.protocol}://${backend.domain}:${backend.port}/api/login`, {
+            method: 'POST',
+            body: JSON.stringify({
+                username,
+                password
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+        .then((res) => {
+            if (res.status === 200) {
+                this.props.signInHandler();
+            }
+            document.querySelector("input[name=username]").value = "";
+            document.querySelector("input[name=password]").value = "";
+            this.setState({username: '', password: ''});
+        })
+        .then(() => this.showMessage());
+    }
+
+    changeHandler(evt) {
+        this.setState({[evt.target.name]: evt.target.value});
+    }
+
     toggleMenuVisibility() {
         this.setState((state) => {
             return {
@@ -31,7 +62,8 @@ class Header extends React.Component {
     render() {
         const hamburgerClasses = "hamburger " + (this.state.isNavOpen ? "hamburger-isNotPresent" : "");
         const navigationClasses = "header-navigation " + (this.state.isNavOpen ? "header-navigation-isPresent" : "header-navigation-isNotPresent");
-        const userActionButton = (this.props.isSignedIn) ? <button className="header-logoutButton" onClick={ this.props.logOutHandler }>Sign Out</button> : <button className="header-loginButton" onClick={ this.redirectToTwitter }>Sign In</button>;
+        const {username, password} = this.state;
+        const userActionButton = (this.props.isSignedIn) ? <button className="header-logoutButton" onClick={ this.props.logOutHandler }>Sign Out</button> : <span><input name="username" type="text" placeholder="username" onChange={this.changeHandler}/><input name="password" type="password" placeholder="password" onChange={this.changeHandler}/><button className="header-loginButton" onClick={ () => this.signIn(username, password) }>Sign In</button></span>;
         const signedInUserLinks = (this.props.isSignedIn) ? <span><Link onClick={ this.toggleMenuVisibility } to="/mybooks/1" className="header-navLink">My Library</Link>
         <Link onClick={ this.toggleMenuVisibility } to="/settings" className="header-navLink">Profile</Link>
         <Link onClick={ this.toggleMenuVisibility } to="/traderequests" className="header-navLink">Requests</Link></span> : null;
@@ -56,6 +88,10 @@ class Header extends React.Component {
               <div className="header-logo">
                 <span className="header-logoText"><span className="header-primaryColorText">Book Trading</span> <span className="header-secondaryColorText">Club</span></span>
               </div>
+              { this.state.showingMessage && <Message onTimeout={() => this.setState({showingMessage: false})} 
+                                                        seconds={3} 
+                                                        type={this.state.messageType} 
+                                                        message={this.state.message}/> }
             </header>
         );
     }

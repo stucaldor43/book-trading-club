@@ -10,6 +10,7 @@ module.exports.up = function(knex) {
         table.string("first_name");
         table.string("last_name");
         table.string("display_name").notNullable().unique("display_name");
+        table.string("password");
         table.integer("fk_address_id").unsigned().references("id").inTable("address").onDelete("RESTRICT");
     })
     .createTable("book", (table) => {
